@@ -1,4 +1,4 @@
-insert into jogos_jogadores_acoesdicip values
+insert into jogos_jogadores_acoesdiscip values
 /*futebol-----------------------------------------------*/
 (36,6,1),
 (36,8,2),
@@ -37,4 +37,4 @@ insert into jogos_jogadores_acoesdicip values
 (45,24,40),
 (45,23,41),
 (31,21,42),
-(66,21,43),
+(66,21,43);

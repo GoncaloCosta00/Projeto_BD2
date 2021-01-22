@@ -4,7 +4,7 @@ VALUES(1, 'Cartão Amarelo'),
 	(3,'Time-out'),
 	(4,'Expulsão'),
 	(5,'Cartão Azul'),
-	(6,'Falta')
+	(6,'Falta');
 	
 /* 1 ao 25 c.amarelo futebol, 26 ao 30 c.vermelho futebol, 31 a 40 amarelo futsal, 40 a 45 vermelho futsal,46 a 70 faltas basquete,71 a 75 expulsao basquete, 76 a 80 c.amarelo volei, 81 a 90 c.amarelo andebol, 91 a 100c.azul hoqeui */
 insert into acoes_disciplinares (id_acao_disciplinar, id_tipo_acao_disciplinar, comentario, tempo_jogo) values (1, 1, 'eget vulputate ut ultrices vel augue', 42);
@@ -113,7 +113,7 @@ insert into acoes_disciplinares (id_acao_disciplinar, id_tipo_acao_disciplinar, 
 INSERT INTO tipo_pontuacao(id_tipo_pontuacao, tipo_pontuacao)
 VALUES(1, 'Golo'),
 	(2, 'Ponto'),
-	(3, 'Set')
+	(3, 'Set');
 	
 /* 1 ao 100 futebol, 101 ao 200 futsal, 201 ao 400 basket, 401 ao 500 volei, 501 ao 600 andebol, 601 ao 700 hoquei*/
 insert into pontuacoes (id_pontuacao, id_tipo_pontuacao, pontuacao, tempo_jogo) values (1, 1, 1, 12);

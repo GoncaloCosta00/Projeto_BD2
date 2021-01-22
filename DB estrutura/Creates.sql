@@ -3,7 +3,7 @@
 /* Created on:     09/12/2020 09:54:52                          */
 /*==============================================================*/
 
-
+/*
 drop index ASSOCIADO_FK;
 
 drop index ACOES_DISCIPLINARES_PK;
@@ -119,7 +119,7 @@ drop table TIPO_ACAO_DISCIPLINAR;
 drop index TIPO_PONTUACAO_PK;
 
 drop table TIPO_PONTUACAO;
-
+*/
 /*==============================================================*/
 /* Table: ACOES_DISCIPLINARES                                   */
 /*==============================================================*/
@@ -128,6 +128,7 @@ create table ACOES_DISCIPLINARES (
    ID_TIPO_ACAO_DISCIPLINAR INT4                 not null,
    COMENTARIO           TEXT                 null,
    TEMPO_JOGO           CHAR(256)            not null,
+   status 				boolean 			default true,
    constraint PK_ACOES_DISCIPLINARES primary key (ID_ACAO_DISCIPLINAR)
 );
 
@@ -153,6 +154,7 @@ create table CAMPEONATOS (
    ID_MODALIDADE        INT4                 not null,
    ID_EPOCA             INT4                 not null,
    NOME_CAMPEONATO      TEXT                 not null,
+   status 				boolean 			default true,
    constraint PK_CAMPEONATOS primary key (ID_CAMPEONATO)
 );
 
@@ -183,7 +185,8 @@ ID_MODALIDADE
 create table CAMPEONATOS___JOGOS___EQUIPAS (
    ID_JOGO              INT4                 not null,
    ID_CAMPEONATO        INT4                 not null,
-   ID_EQUIPA            INT4                 not null
+   ID_EQUIPA            INT4                 not null,
+   status 				boolean 			default true
 );
 
 /*==============================================================*/
@@ -218,6 +221,7 @@ create table CLUBE (
    PRESIDENTE           TEXT                 not null,
    DISTRITO             TEXT                 not null,
    EMAIL                TEXT                 not null,
+   status 				boolean 			default true,
    constraint PK_CLUBE primary key (ID_CLUBE)
 );
 
@@ -235,6 +239,7 @@ create table EPOCAS (
    ID_EPOCA             SERIAL               not null,
    ANO_INICIO           INT4                 not null,
    ANO_FIM              INT4                 not null,
+   status 				boolean 			default true,
    constraint PK_EPOCAS primary key (ID_EPOCA)
 );
 
@@ -259,6 +264,7 @@ create table EQUIPAS (
    SEDE                 TEXT                 null,
    TELEFONE             INT4                 null,
    EMAIL                TEXT                 null,
+   status 				boolean 			default true,
    constraint PK_EQUIPAS primary key (ID_EQUIPA)
 );
 
@@ -305,6 +311,7 @@ create table FAIXA_ETARIA (
    FAIXA_ETARIA         TEXT                 not null,
    IDADE_INICIO         INT4                 null,
    IDADE_FIM            INT4                 null,
+   status 				boolean 			default true,
    constraint PK_FAIXA_ETARIA primary key (ID_FAIXA_ETARIA)
 );
 
@@ -321,6 +328,7 @@ ID_FAIXA_ETARIA
 create table GENEROS (
    ID_GENERO            SERIAL               not null,
    GENERO               TEXT                 not null,
+   status 				boolean 			default true,
    constraint PK_GENEROS primary key (ID_GENERO)
 );
 
@@ -341,6 +349,7 @@ create table JOGADORES (
    TELEMOVEL            INT4                 not null,
    ALTURA               INT4                 not null,
    NATURALIDADE         TEXT                 not null,
+   status 				boolean 			default true,
    constraint PK_JOGADORES primary key (ID_JOGADOR)
 );
 
@@ -359,7 +368,8 @@ create table JOGADORES_JOGOS_EQUIPAS (
    ID_JOGO              INT4                 not null,
    ID_JOGADOR           INT4                 not null,
    TITULAR              BOOL                 not null,
-   NUMERO_JOGADOR       INT4                 not null
+   NUMERO_JOGADOR       INT4                 not null,
+   status 				boolean 			default true
 );
 
 /*==============================================================*/
@@ -389,6 +399,7 @@ ID_EQUIPA
 create table JOGAM (
    ID_JOGADOR           INT4                 not null,
    ID_EQUIPA            INT4                 not null,
+   status 				boolean 			default true,
    constraint PK_JOGAM primary key (ID_JOGADOR, ID_EQUIPA)
 );
 
@@ -421,6 +432,7 @@ create table JOGOS (
    ID_JOGO              SERIAL               not null,
    DATA_HORA            DATE                 not null,
    LOCAL                TEXT                 null,
+   status 				boolean 			default true,
    constraint PK_JOGOS primary key (ID_JOGO)
 );
 
@@ -436,8 +448,9 @@ ID_JOGO
 /*==============================================================*/
 create table JOGOS_JOGADORES_ACOESDISCIP (
    ID_JOGO              INT4                 not null,
+   ID_JOGADOR           INT4                 not null,
    ID_ACAO_DISCIPLINAR  INT4                 not null,
-   ID_JOGADOR           INT4                 not null
+   status 				boolean 			default true
 );
 
 /*==============================================================*/
@@ -467,6 +480,7 @@ ID_ACAO_DISCIPLINAR
 create table MODALIDADES (
    ID_MODALIDADE        SERIAL               not null,
    MODALIDADE           TEXT                 not null,
+   status 				boolean 			default true,
    constraint PK_MODALIDADES primary key (ID_MODALIDADE)
 );
 
@@ -485,6 +499,7 @@ create table PONTUACOES (
    ID_TIPO_PONTUACAO    INT4                 not null,
    PONTUACAO            TEXT                 not null,
    TEMPO_JOGO           CHAR(256)            not null,
+   status 				boolean 			default true,
    constraint PK_PONTUACOES primary key (ID_PONTUACAO)
 );
 
@@ -507,8 +522,9 @@ ID_TIPO_PONTUACAO
 /*==============================================================*/
 create table PONTUACOES___JOGADORES_JOGOS (
    ID_PONTUACAO         INT4                 not null,
+   ID_JOGADOR           INT4                 not null,
    ID_JOGO              INT4                 not null,
-   ID_JOGADOR           INT4                 not null
+   status 				boolean 			default true
 );
 
 /*==============================================================*/
@@ -542,6 +558,7 @@ create table SUBSTITUICOES (
    TEMPO_JOGO           TEXT                 not null,
    ENTRA                bool                 not null,
    SAI                  bool                 not null,
+   status 				boolean 			default true,
    constraint PK_SUBSTITUICOES primary key (ID_SUB)
 );
 
@@ -572,6 +589,7 @@ ID_JOGO
 create table TIPO_ACAO_DISCIPLINAR (
    ID_TIPO_ACAO_DISCIPLINAR SERIAL               not null,
    ACAO_DISCIPLINAR     TEXT                 not null,
+   status 				boolean 			default true,
    constraint PK_TIPO_ACAO_DISCIPLINAR primary key (ID_TIPO_ACAO_DISCIPLINAR)
 );
 
@@ -588,6 +606,7 @@ ID_TIPO_ACAO_DISCIPLINAR
 create table TIPO_PONTUACAO (
    ID_TIPO_PONTUACAO    SERIAL               not null,
    TIPO_PONTUACAO       TEXT                 not null,
+   status 				boolean 			default true,
    constraint PK_TIPO_PONTUACAO primary key (ID_TIPO_PONTUACAO)
 );
 
