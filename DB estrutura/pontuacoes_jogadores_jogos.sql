@@ -1,4 +1,4 @@
-insert into pontuacoes___jogadores_jogos values
+insert into pontuacoes_jogadores_jogos values
 /*altear tabela, pq o os jogos e jogadores estao trocados*/
 /*futebol-----------------------------------------------*/
 (1,7,36),

@@ -24,7 +24,7 @@ drop index DISPUTA_FK;
 
 drop index INTEGRA_FK;
 
-drop table CAMPEONATOS___JOGOS___EQUIPAS;
+drop table campeonatos_jogos_equipas;
 
 drop index CLUBE_PK;
 
@@ -102,7 +102,7 @@ drop index ENGLOBA_FK;
 
 drop index REFERENTE_FK;
 
-drop table PONTUACOES___JOGADORES_JOGOS;
+drop table pontuacoes_jogadores_jogos;
 
 drop index OCORREM_FK;
 
@@ -183,9 +183,9 @@ ID_MODALIDADE
 );
 
 /*==============================================================*/
-/* Table: CAMPEONATOS___JOGOS___EQUIPAS                         */
+/* Table: campeonatos_jogos_equipas                         */
 /*==============================================================*/
-create table CAMPEONATOS___JOGOS___EQUIPAS (
+create table campeonatos_jogos_equipas (
    ID_JOGO              INT4                 not null,
    ID_CAMPEONATO        INT4                 not null,
    ID_EQUIPA            INT4                 not null,
@@ -195,21 +195,21 @@ create table CAMPEONATOS___JOGOS___EQUIPAS (
 /*==============================================================*/
 /* Index: INTEGRA_FK                                            */
 /*==============================================================*/
-create  index INTEGRA_FK on CAMPEONATOS___JOGOS___EQUIPAS (
+create  index INTEGRA_FK on campeonatos_jogos_equipas (
 ID_CAMPEONATO
 );
 
 /*==============================================================*/
 /* Index: DISPUTA_FK                                            */
 /*==============================================================*/
-create  index DISPUTA_FK on CAMPEONATOS___JOGOS___EQUIPAS (
+create  index DISPUTA_FK on campeonatos_jogos_equipas (
 ID_EQUIPA
 );
 
 /*==============================================================*/
 /* Index: PERTENCEM_FK                                          */
 /*==============================================================*/
-create  index PERTENCEM_FK on CAMPEONATOS___JOGOS___EQUIPAS (
+create  index PERTENCEM_FK on campeonatos_jogos_equipas (
 ID_JOGO
 );
 
@@ -521,9 +521,9 @@ ID_TIPO_PONTUACAO
 );
 
 /*==============================================================*/
-/* Table: PONTUACOES___JOGADORES_JOGOS                          */
+/* Table: pontuacoes_jogadores_jogos                          */
 /*==============================================================*/
-create table PONTUACOES___JOGADORES_JOGOS (
+create table pontuacoes_jogadores_jogos (
    ID_PONTUACAO         INT4                 not null,
    ID_JOGADOR           INT4                 not null,
    ID_JOGO              INT4                 not null,
@@ -533,21 +533,21 @@ create table PONTUACOES___JOGADORES_JOGOS (
 /*==============================================================*/
 /* Index: REFERENTE_FK                                          */
 /*==============================================================*/
-create  index REFERENTE_FK on PONTUACOES___JOGADORES_JOGOS (
+create  index REFERENTE_FK on pontuacoes_jogadores_jogos (
 ID_PONTUACAO
 );
 
 /*==============================================================*/
 /* Index: ENGLOBA_FK                                            */
 /*==============================================================*/
-create  index ENGLOBA_FK on PONTUACOES___JOGADORES_JOGOS (
+create  index ENGLOBA_FK on pontuacoes_jogadores_jogos (
 ID_JOGO
 );
 
 /*==============================================================*/
 /* Index: REGISTADO_FK                                          */
 /*==============================================================*/
-create  index REGISTADO_FK on PONTUACOES___JOGADORES_JOGOS (
+create  index REGISTADO_FK on pontuacoes_jogadores_jogos (
 ID_JOGADOR
 );
 
@@ -635,17 +635,17 @@ alter table CAMPEONATOS
       references MODALIDADES (ID_MODALIDADE)
       on delete restrict on update restrict;
 
-alter table CAMPEONATOS___JOGOS___EQUIPAS
+alter table campeonatos_jogos_equipas
    add constraint FK_CAMPEONA_DISPUTA_EQUIPAS foreign key (ID_EQUIPA)
       references EQUIPAS (ID_EQUIPA)
       on delete restrict on update restrict;
 
-alter table CAMPEONATOS___JOGOS___EQUIPAS
+alter table campeonatos_jogos_equipas
    add constraint FK_CAMPEONA_INTEGRA_CAMPEONA foreign key (ID_CAMPEONATO)
       references CAMPEONATOS (ID_CAMPEONATO)
       on delete restrict on update restrict;
 
-alter table CAMPEONATOS___JOGOS___EQUIPAS
+alter table campeonatos_jogos_equipas
    add constraint FK_CAMPEONA_PERTENCEM_JOGOS foreign key (ID_JOGO)
       references JOGOS (ID_JOGO)
       on delete restrict on update restrict;
@@ -715,17 +715,17 @@ alter table PONTUACOES
       references TIPO_PONTUACAO (ID_TIPO_PONTUACAO)
       on delete restrict on update restrict;
 
-alter table PONTUACOES___JOGADORES_JOGOS
+alter table pontuacoes_jogadores_jogos
    add constraint FK_PONTUACO_ENGLOBA_JOGOS foreign key (ID_JOGO)
       references JOGOS (ID_JOGO)
       on delete restrict on update restrict;
 
-alter table PONTUACOES___JOGADORES_JOGOS
+alter table pontuacoes_jogadores_jogos
    add constraint FK_PONTUACO_REFERENTE_PONTUACO foreign key (ID_PONTUACAO)
       references PONTUACOES (ID_PONTUACAO)
       on delete restrict on update restrict;
 
-alter table PONTUACOES___JOGADORES_JOGOS
+alter table pontuacoes_jogadores_jogos
    add constraint FK_PONTUACO_REGISTADO_JOGADORE foreign key (ID_JOGADOR)
       references JOGADORES (ID_JOGADOR)
       on delete restrict on update restrict;
