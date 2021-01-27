@@ -1,0 +1,146 @@
+
+create or replace procedure alteracao_jogador(equipa_proc integer, jogo_proc integer, campeonato_proc integer)
+language plpgsql
+as $$
+declare
+	/*jogadores com menos acoes disciplinares na epoca anterior de uma equipa dos que tem menos para os que tem mais*/
+	menos_acoes scroll cursor (campeonato integer, equipa integer, jogo integer) for 
+		SELECT 
+			id_jogador,
+			(
+				select 
+					count(*) 
+				from jogos_jogadores_acoesdiscip 
+				where 
+					jogos_jogadores_acoesdiscip.id_jogador = jogam.id_jogador and 
+					jogos_jogadores_acoesdiscip.id_jogo in (
+						select 
+							id_jogo
+						from campeonatos_jogos_equipas 
+						where 
+							campeonatos_jogos_equipas.id_equipa = jogam.id_equipa and 
+							id_campeonato = campeonato
+					)
+			) as "num_acoes_disp" 
+		from jogam
+		group by id_jogador, id_equipa
+		having 
+			id_equipa = equipa and
+			id_jogador in (
+				select 
+					id_jogador
+				from jogadores_jogos_equipas
+				where
+					id_equipa = equipa and
+					id_jogo = jogo and
+					titular = false
+			)
+		order by "num_acoes_disp";
+		
+	mais_acoes cursor (campeonato integer, equipa integer, jogo integer) for
+		SELECT 
+			jogadores.id_jogador 
+		from jogos_jogadores_acoesdiscip
+			join campeonatos_jogos_equipas
+				on jogos_jogadores_acoesdiscip.id_jogo = campeonatos_jogos_equipas.id_jogo
+				join jogadores
+					on jogos_jogadores_acoesdiscip.id_jogador = jogadores.id_jogador
+		where
+			campeonatos_jogos_equipas.id_campeonato = campeonato and 
+			campeonatos_jogos_equipas.id_equipa = equipa
+		group by 
+			jogadores.nome, 
+			jogadores.id_jogador
+		having 
+			jogadores.id_jogador in (
+				select 
+					id_jogador
+				from jogadores_jogos_equipas
+				where
+					id_equipa = equipa and
+					id_jogo = jogo and
+					titular = true
+			)
+		ORDER BY 
+			COUNT(jogos_jogadores_acoesdiscip.id_jogador) desc limit 2;
+	
+	rec record;
+	jogador1 integer;
+	jogador2 integer;
+	jogador_sub1 integer;
+	jogador_sub2 integer;
+	aux integer;
+	
+begin
+	/*encontrar jogadores que vao sair*/
+	jogador1 := -1;
+	jogador2 := -1;
+	open mais_acoes (campeonato:=campeonato_proc, equipa:=equipa_proc, jogo:= jogo_proc);
+	loop
+	
+		if jogador1 = -1 then
+			fetch mais_acoes into jogador1;
+		elsif jogador2 = -1 then
+			fetch mais_acoes into jogador2;
+		else
+			exit;
+		end if;
+		exit when not found;
+	end loop;
+	close mais_acoes;
+	
+	if not (jogador1 = -1 and jogador2 = -1) then
+		/*encontrar substituicoes*/
+		jogador_sub1 := -1;
+		jogador_sub2 := -1;
+		open menos_acoes (campeonato:=campeonato_proc, equipa:=equipa_proc, jogo:= jogo_proc);
+		loop
+			fetch menos_acoes into rec;
+			exit when not found;
+			
+			if rec.id_jogador <> jogador1 and rec.id_jogador <> jogador2 then
+				if jogador_sub1 = -1 then
+					jogador_sub1 := rec.id_jogador;
+				elsif jogador_sub2 = -1 then
+					jogador_sub2 := rec.id_jogador;
+				else
+					exit;
+				end if;
+			end if;
+		end loop;
+		close menos_acoes;
+		
+		raise info '% por %', jogador1, jogador_sub1;
+		raise info '% por %', jogador2, jogador_sub2;
+		/*fazer substituicoes*/
+		insert into substituicoes (id_jogador,id_jogo,tempo_jogo,entra,sai) values 
+		(jogador1 , jogo_proc ,45 , 'false', 'true '),
+        (jogador_sub1 , jogo_proc ,45 , 'true', 'false '), 
+		(jogador2 , jogo_proc ,45 , 'false', 'true '), 
+        (jogador_sub2 , jogo_proc ,45 , 'true', 'false '); 
+	end if;
+end;
+$$;
+
+create or replace procedure alteracao_jogador_equipas(equipa_A integer, equipa_B integer, campeonato integer)
+language plpgsql
+as $$
+declare
+	jogo integer;
+begin
+	jogo := (select id_jogo from campeonatos_jogos_equipas where id_equipa = equipa_A and id_campeonato = campeonato and id_jogo in (select id_jogo from campeonatos_jogos_equipas where id_equipa = equipa_B and id_campeonato = campeonato));
+	raise info 'ola % % %',equipa_A,jogo,campeonato; 
+	call alteracao_jogador(equipa_A, jogo, campeonato);
+	call alteracao_jogador(equipa_B, jogo, campeonato);
+end;
+$$;
+
+do $$
+declare
+	equipa_A integer := 1;
+	equipa_B integer := 10;
+	campeonato integer := 1;
+begin
+	call alteracao_jogador_equipas(equipa_A, equipa_B, campeonato);
+end;
+$$;

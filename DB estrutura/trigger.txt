@@ -1,0 +1,53 @@
+create or replace function funcao_logs()
+RETURNS trigger as 
+$body$
+begin
+
+    IF (TG_OP = 'UPDATE') THEN
+        insert into logs (tabela, alteracao,hora,utilizador) 
+        values (TG_TABLE_NAME::regclass::text,'Update na tabela',NOW(),user);
+        
+    ELSIF (TG_OP = 'DELETE') THEN
+        insert into logs (tabela, alteracao,hora,utilizador) 
+        values (TG_TABLE_NAME::regclass::text,'Delete na tabela',NOW(),user);
+
+    ELSIF (TG_OP = 'INSERT') THEN
+        insert into logs (tabela, alteracao,hora,utilizador) 
+        values (TG_TABLE_NAME::regclass::text,'Insert na tabela',NOW(),user);
+        
+    end if;
+    
+return new;
+end;
+$body$
+language plpgsql;
+
+
+
+DO $$
+DECLARE
+    tt record;
+	cc cursor
+		 for SELECT p.tablename
+		FROM pg_tables p
+		WHERE p.schemaname = 'public';
+BEGIN
+	open cc;
+	loop
+      fetch cc into tt;
+      exit when not found;
+	  
+	  if tt.tablename <> 'logs' then
+	  EXECUTE format('DROP TRIGGER if exists trigger_logs_%I ON %I',
+                        tt.tablename, tt.tablename);
+        EXECUTE format('CREATE TRIGGER trigger_logs_%I
+                        AFTER INSERT OR DELETE OR UPDATE ON %I
+                        FOR EACH ROW EXECUTE FUNCTION funcao_logs()',
+                        tt.tablename, tt.tablename);
+						
+						
+		end if;
+    END LOOP;
+	CLOSE cc;
+END; $$ 
+LANGUAGE plpgsql;
