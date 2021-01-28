@@ -1,6 +1,24 @@
 drop view if exists view2;
-create view view2
-as(select 
+drop function if exists view2_func;
+create or replace function view2_func()
+returns table (
+	 "_id_jogo" integer,
+	 "_data_do_jogo" date,
+	 "_id_campeonato" integer,
+	 "_Equipa A" integer,
+	 "_A vs B" text,
+	 "_Equipa B" integer,
+	 "_Goleador da equipa A" text,
+	 "_Goleador da equipa B" text,
+	  "_Jogador + _penalizado_equipa A" text,
+	  "_Jogador + _penalizado_equipa B" text
+	)
+as
+$$
+	declare
+	
+	begin
+		return query (select 
 	jogos.id_jogo,jogos.data_hora as "data do jogo",
 	(select 
 		id_campeonato 
@@ -174,4 +192,11 @@ as(select
 		where 
 			campeonatos_jogos_equipas.id_jogo = jogos.id_jogo
 		limit 1) is not null
-		
+					 order by jogos.data_hora );
+	end;
+$$
+language plpgsql;
+
+drop view if exists view2;
+create view view2
+as select * from view2_func();
