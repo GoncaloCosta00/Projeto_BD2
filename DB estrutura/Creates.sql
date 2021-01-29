@@ -129,7 +129,7 @@ create sequence sequencia;
 create table ACOES_DISCIPLINARES (
    ID_ACAO_DISCIPLINAR  SERIAL               not null,
    ID_TIPO_ACAO_DISCIPLINAR INT4                 not null,
-   COMENTARIO           TEXT                 null default "acaodisciplinar"||nextval("sequencia"),
+   COMENTARIO           TEXT                 null default 'acaodisciplinar'||nextval('sequencia'),
    TEMPO_JOGO           CHAR(256)            not null,
    status 				boolean 			default true,
    constraint PK_ACOES_DISCIPLINARES primary key (ID_ACAO_DISCIPLINAR)
