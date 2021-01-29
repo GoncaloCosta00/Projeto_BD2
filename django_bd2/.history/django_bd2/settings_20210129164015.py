@@ -23,14 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '#+28u=zj!_hvoe(=mjjy@5d)2r8#h9nuhsxzfh!iv%pug4-f&#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'django_bd2_pagina.apps.DjangoBd2PaginaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,9 +75,13 @@ WSGI_APPLICATION = 'django_bd2.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+ 'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'projeto_bd2', #nome da bd
+        'USER': 'bd2', #nome do user
+        'PASSWORD': 'bd2', #password
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
