@@ -19,6 +19,7 @@
 </head>
 
 <body>
+    <!-- MENU -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Projeto_SE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -33,12 +34,45 @@
             </div>
         </div>
     </nav>
+    <!-- DROPDOWN  -->
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="Tabelas">
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Ações Disciplinares')" >Ações Disciplinares</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Campeonatos')" >Campeonatos</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Campeonatos_jogos_equipas')" >Campeonatos_jogos_equipas</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Clube')" >Clube</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Convocatória')" >Convocatória</a>   <!-- jogadores jogos equipas -->
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Época')" >Época</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Equipa')" >Equipa</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Jogadores')" >Jogadores</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Jogos')" >Jogos</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Modalidades')" >Modalidades</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Pontuacoes')" >Pontuacoes</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Pontuações_jogador_jogos')" >Pontuações_jogador_jogos</a>
+          <a class="dropdown-item" onclick="ver_item_escolhido_dropdown('Substituições')" >Substituições</a>
+        </div>
+        <div class="div_para_insert">
+            <p class="escolha_no_dropdown" id="paragrafo"></p>
+        </div>
+        <div class="div_labels_insert">
+            
+        </div>
+      </div>
 
    
     <main class="div_total">
         
     </main>
+    <script>
+        function ver_item_escolhido_dropdown(item){
+            console.log(item);
+            document.getElementById("paragrafo").innerHTML = item;
+        }
 
+    </script>
 
 </body>
 
