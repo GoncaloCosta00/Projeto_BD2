@@ -113,4 +113,4 @@ insert into pontuacoes_jogadores_jogos values
 (147,189,41),
 (148,77,2),
 (149,77,2),
-(150,110,2),
+(150,110,2);
