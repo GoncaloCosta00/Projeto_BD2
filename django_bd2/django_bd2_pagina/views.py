@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from django.views.decorators.csrf import csrf_exempt #ignorar os tokens, etc
 from django.template import loader
+from .forms import JogadorForm
+from .models import Jogadores
+
 
 #json encoder
 from django.core.serializers.json import DjangoJSONEncoder
@@ -17,6 +20,20 @@ def create(request):
   
     return render(request,'create.html',{})
 
+#def create_jogador(request):
+#    template = loader.get_template('jogador.html')
+#  
+#    return HttpResponse(template.render({},request))
+
+def create_jogador(request):
+   if request.method == "POST":
+        form = JogadorForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:   
+            form = JogadorForm()
+        return render(request, 'jogador.html', {'form': form})
+
 def list(request):
     template = loader.get_template('update.html')
   
@@ -26,5 +43,6 @@ def update(request):
     template = loader.get_template('list.html')
   
     return HttpResponse(template.render({},request))
+
 
 
