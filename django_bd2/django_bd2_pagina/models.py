@@ -9,6 +9,8 @@ from django.db import models
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 
+
+
 class AcoesDisciplinares(models.Model):
     id_acao_disciplinar = models.AutoField(primary_key=True)
     id_tipo_acao_disciplinar = models.ForeignKey('TipoAcaoDisciplinar', models.DO_NOTHING, db_column='id_tipo_acao_disciplinar')
@@ -21,6 +23,20 @@ class AcoesDisciplinares(models.Model):
         db_table = 'acoes_disciplinares'
 
 
+
+class Epocas(models.Model):
+    id_epoca = models.AutoField(primary_key=True)
+    ano_inicio = models.IntegerField()
+    ano_fim = models.IntegerField()
+    status = models.BooleanField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.ano_inicio) + "/" + str(self.ano_fim)
+
+    class Meta:
+        managed = False
+        db_table = 'epocas'
+
 class Campeonatos(models.Model):
     id_campeonato = models.AutoField(primary_key=True)
     id_modalidade = models.ForeignKey('Modalidades', models.DO_NOTHING, db_column='id_modalidade')
@@ -28,9 +44,14 @@ class Campeonatos(models.Model):
     nome_campeonato = models.TextField()
     status = models.BooleanField(blank=True, null=True)
 
+    def __str__(self):
+        return self.nome_campeonato
+
     class Meta:
         managed = False
         db_table = 'campeonatos'
+
+        
 
 
 class CampeonatosJogosEquipas(models.Model):
@@ -62,15 +83,7 @@ class Clube(models.Model):
         db_table = 'clube'
 
 
-class Epocas(models.Model):
-    id_epoca = models.AutoField(primary_key=True)
-    ano_inicio = models.IntegerField()
-    ano_fim = models.IntegerField()
-    status = models.BooleanField(blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'epocas'
 
 
 class Equipas(models.Model):
@@ -85,6 +98,9 @@ class Equipas(models.Model):
     telefone = models.IntegerField(blank=True, null=True)
     email = models.TextField(blank=True, null=True)
     status = models.BooleanField(blank=True, null=True)
+
+    def __str__(self):
+        return self.equipa
 
     class Meta:
         managed = False
@@ -247,3 +263,6 @@ class TipoPontuacao(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_pontuacao'
+
+
+

@@ -4,13 +4,14 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt  # ignorar os tokens, etc
 from django.template import loader
 from .forms import JogadorForm
-<<<<<<< HEAD
-from .models import Jogadores, Equipas
 
-=======
+from .models import Jogadores, Equipas, Campeonatos
+
+from django.db import connections
+
 from .forms import EquipaForm
 from .models import Jogadores
->>>>>>> main
+
 
 
 # json encoder
@@ -91,16 +92,21 @@ def list(request):
 def update(request):
     template = loader.get_template('list.html')
 
-<<<<<<< HEAD
 #  Listas da NASA
+
+
+
 def jogador_list(request):
-    context = {'jogador_list': Jogadores.objects.all(),'equipas_list': Equipas.objects.all()}
+    from django.db import connection
+    c = connection.cursor()
+    c.execute('select * from view2')
+    row = c.fetchall()
+
+    context = {'view2_list': row,'jogador_list': Jogadores.objects.all(),'equipas_list': Equipas.objects.all(),'campeonatos_list': Campeonatos.objects.all()}
+    print (row[0][1])
     return render(request,"list.html",context)
 
 
 
 
 
-=======
-    return HttpResponse(template.render({}, request))
->>>>>>> main
