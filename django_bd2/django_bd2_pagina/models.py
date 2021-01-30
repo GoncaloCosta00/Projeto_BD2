@@ -16,7 +16,8 @@ class AcoesDisciplinares(models.Model):
     id_tipo_acao_disciplinar = models.ForeignKey('TipoAcaoDisciplinar', models.DO_NOTHING, db_column='id_tipo_acao_disciplinar')
     comentario = models.TextField(blank=True, null=True)
     tempo_jogo = models.CharField(max_length=256)
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
+
 
     class Meta:
         managed = False
@@ -42,7 +43,7 @@ class Campeonatos(models.Model):
     id_modalidade = models.ForeignKey('Modalidades', models.DO_NOTHING, db_column='id_modalidade')
     id_epoca = models.ForeignKey('Epocas', models.DO_NOTHING, db_column='id_epoca')
     nome_campeonato = models.TextField()
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     def __str__(self):
         return self.nome_campeonato
@@ -58,7 +59,7 @@ class CampeonatosJogosEquipas(models.Model):
     id_jogo = models.ForeignKey('Jogos', models.DO_NOTHING, db_column='id_jogo')
     id_campeonato = models.ForeignKey(Campeonatos, models.DO_NOTHING, db_column='id_campeonato')
     id_equipa = models.ForeignKey('Equipas', models.DO_NOTHING, db_column='id_equipa')
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
@@ -73,7 +74,7 @@ class Clube(models.Model):
     presidente = models.TextField()
     distrito = models.TextField()
     email = models.TextField()
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True', blank=True, null=True)
 
     def __str__(self):
         return self.nome
@@ -83,6 +84,17 @@ class Clube(models.Model):
         db_table = 'clube'
 
 
+<<<<<<< HEAD
+=======
+class Epocas(models.Model):
+    id_epoca = models.AutoField(primary_key=True)
+    ano_inicio = models.IntegerField()
+    ano_fim = models.IntegerField()
+    status = models.BooleanField(default='True',blank=True, null=True)
+   
+    def __str__(self):
+        return str(self.ano_inicio) + "/" + str(self.ano_fim)
+>>>>>>> main
 
 
 
@@ -97,7 +109,7 @@ class Equipas(models.Model):
     sede = models.TextField(blank=True, null=True)
     telefone = models.IntegerField(blank=True, null=True)
     email = models.TextField(blank=True, null=True)
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     def __str__(self):
         return self.equipa
@@ -112,7 +124,7 @@ class FaixaEtaria(models.Model):
     faixa_etaria = models.TextField()
     idade_inicio = models.IntegerField(blank=True, null=True)
     idade_fim = models.IntegerField(blank=True, null=True)
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     def __str__(self):
         return self.faixa_etaria
@@ -125,7 +137,7 @@ class FaixaEtaria(models.Model):
 class Generos(models.Model):
     id_genero = models.AutoField(primary_key=True)
     genero = models.TextField()
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     def __str__(self):
         return self.genero
@@ -155,7 +167,7 @@ class JogadoresJogosEquipas(models.Model):
     id_jogador = models.ForeignKey(Jogadores, models.DO_NOTHING, db_column='id_jogador')
     titular = models.BooleanField()
     numero_jogador = models.IntegerField()
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
@@ -165,7 +177,7 @@ class JogadoresJogosEquipas(models.Model):
 class Jogam(models.Model):
     id_jogador = models.ForeignKey(Jogadores, models.DO_NOTHING, db_column='id_jogador', primary_key=True)
     id_equipa = models.ForeignKey(Equipas, models.DO_NOTHING, db_column='id_equipa')
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
@@ -177,7 +189,7 @@ class Jogos(models.Model):
     id_jogo = models.AutoField(primary_key=True)
     data_hora = models.DateField()
     local = models.TextField(blank=True, null=True)
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
@@ -188,7 +200,7 @@ class JogosJogadoresAcoesdiscip(models.Model):
     id_jogo = models.ForeignKey(Jogos, models.DO_NOTHING, db_column='id_jogo')
     id_jogador = models.ForeignKey(Jogadores, models.DO_NOTHING, db_column='id_jogador')
     id_acao_disciplinar = models.ForeignKey(AcoesDisciplinares, models.DO_NOTHING, db_column='id_acao_disciplinar')
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
@@ -198,7 +210,7 @@ class JogosJogadoresAcoesdiscip(models.Model):
 class Modalidades(models.Model):
     id_modalidade = models.AutoField(primary_key=True)
     modalidade = models.TextField()
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     def __str__(self):
         return self.modalidade
@@ -213,7 +225,7 @@ class Pontuacoes(models.Model):
     id_tipo_pontuacao = models.ForeignKey('TipoPontuacao', models.DO_NOTHING, db_column='id_tipo_pontuacao')
     pontuacao = models.TextField()
     tempo_jogo = models.CharField(max_length=256)
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
@@ -224,7 +236,7 @@ class PontuacoesJogadoresJogos(models.Model):
     id_pontuacao = models.ForeignKey(Pontuacoes, models.DO_NOTHING, db_column='id_pontuacao')
     id_jogador = models.ForeignKey(Jogadores, models.DO_NOTHING, db_column='id_jogador')
     id_jogo = models.ForeignKey(Jogos, models.DO_NOTHING, db_column='id_jogo')
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
@@ -238,7 +250,7 @@ class Substituicoes(models.Model):
     tempo_jogo = models.TextField()
     entra = models.BooleanField()
     sai = models.BooleanField()
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
@@ -248,7 +260,7 @@ class Substituicoes(models.Model):
 class TipoAcaoDisciplinar(models.Model):
     id_tipo_acao_disciplinar = models.AutoField(primary_key=True)
     acao_disciplinar = models.TextField()
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
@@ -258,7 +270,7 @@ class TipoAcaoDisciplinar(models.Model):
 class TipoPontuacao(models.Model):
     id_tipo_pontuacao = models.AutoField(primary_key=True)
     tipo_pontuacao = models.TextField()
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
         managed = False
