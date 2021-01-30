@@ -3,7 +3,8 @@ from django.http import HttpResponse,JsonResponse
 from django.views.decorators.csrf import csrf_exempt #ignorar os tokens, etc
 from django.template import loader
 from .forms import JogadorForm
-from .models import Jogadores
+from .models import Jogadores, Equipas
+
 
 
 #json encoder
@@ -49,8 +50,10 @@ def update(request):
 
 #  Listas da NASA
 def jogador_list(request):
-    context = {'jogador_list': Jogadores.objects.all()}
+    context = {'jogador_list': Jogadores.objects.all(),'equipas_list': Equipas.objects.all()}
     return render(request,"list.html",context)
+
+
 
 
 

@@ -9,7 +9,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingOne">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Lista #1
+          Lista de Jogadores
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -57,12 +57,55 @@
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingTwo">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Lista #2
+            Lista de Equipas
         </button>
       </h2>
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
         <div class="accordion-body">
             <strong>Conteudo</strong> 
+
+            <table class="table table-borderless">
+                <thead class="border-bottom font-weight-bold">
+                    <tr>
+                        <td>Genero</td>
+                        <td>Clube</td>
+                        <td>Modalidade</td>
+                        <td>Faixa Etaria</td>
+                        <td>Equipa</td>
+                        <td>Treinador</td>
+                        <td>Sede</td>
+                        <td>Telefone</td>
+                        <td>Email</td>
+                        <td>
+                            <a href="" class="btn btn-outline-success">
+                                <i class="fas fa-plus"></i> Adicionar Equipa
+                            </a>
+                        </td>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for equipas in equipas_list %}
+                        <tr>
+                            <td>{{equipas.id_genero}}</td>
+                            <td>{{equipas.id_clube}}</td>
+                            <td>{{equipas.id_modalidade}}</td>
+                            <td>{{equipas.id_faixa_etaria}}</td>
+                            <td>{{equipas.equipa}}</td>
+                            <td>{{equipas.treinador}}</td>
+                            <td>{{equipas.sede}}</td>
+                            <td>{{equipas.telefone}}</td>
+                            <td>{{equipas.email}}</td>
+                            <td>
+                                <a href="" class="btn text-secondary px-0">
+                                    <i class="far fa-edit fa-lg"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
         </div>
       </div>
     </div>

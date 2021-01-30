@@ -54,6 +54,9 @@ class Clube(models.Model):
     email = models.TextField()
     status = models.BooleanField(blank=True, null=True)
 
+    def __str__(self):
+        return self.nome
+
     class Meta:
         managed = False
         db_table = 'clube'
@@ -95,6 +98,9 @@ class FaixaEtaria(models.Model):
     idade_fim = models.IntegerField(blank=True, null=True)
     status = models.BooleanField(blank=True, null=True)
 
+    def __str__(self):
+        return self.faixa_etaria
+
     class Meta:
         managed = False
         db_table = 'faixa_etaria'
@@ -104,6 +110,9 @@ class Generos(models.Model):
     id_genero = models.AutoField(primary_key=True)
     genero = models.TextField()
     status = models.BooleanField(blank=True, null=True)
+
+    def __str__(self):
+        return self.genero
 
     class Meta:
         managed = False
@@ -174,6 +183,9 @@ class Modalidades(models.Model):
     id_modalidade = models.AutoField(primary_key=True)
     modalidade = models.TextField()
     status = models.BooleanField(blank=True, null=True)
+
+    def __str__(self):
+        return self.modalidade
 
     class Meta:
         managed = False
