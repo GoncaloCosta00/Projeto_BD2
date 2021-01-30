@@ -117,7 +117,7 @@ class Jogadores(models.Model):
     telemovel = models.IntegerField()
     altura = models.IntegerField()
     naturalidade = models.TextField()
-    status = models.BooleanField(blank=True, null=True)
+    status = models.BooleanField( default='True',blank=True, null=True)
 
     class Meta:
         managed = False
