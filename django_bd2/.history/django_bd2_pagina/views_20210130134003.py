@@ -26,14 +26,14 @@ def create(request):
 #    return HttpResponse(template.render({},request))
 
 def create_jogador(request):
-    #if request.method == "POST":
-        form = JogadorForm()
+    if request.method == "POST":
+        form = JogadorForm(request.POST)
         if form.is_valid():
             form.save()
         else:   
             form = JogadorForm()
         return render(request, 'jogador.html', {'form': form})
-    #return HttpResponse("Não é isto que pretendes")
+    return HttpResponse("Não é isto que pretendes")
 
 def list(request):
     template = loader.get_template('update.html')
