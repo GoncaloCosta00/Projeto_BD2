@@ -4,7 +4,12 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('create', views.create, name='create'),
     path('create/jogador', views.create_jogador, name='create_jogador'),
+<<<<<<< HEAD
     path('list', views.jogador_list, name='jogador_list'),
     
+=======
+    path('create/equipa', views.create_equipa, name='create_jogador'),
+    path('list', views.list, name='index'),
+>>>>>>> main
     path('update',views.update ,name='index')
 ]
