@@ -47,3 +47,10 @@ def update(request):
 
 
 
+#  Listas da NASA
+def jogador_list(request):
+    context = {'jogador_list': Jogadores.objects.all()}
+    return render(request,"list.html",context)
+
+
+
