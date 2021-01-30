@@ -79,8 +79,8 @@ DATABASES = {
  'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'projeto_bd2', #nome da bd
-        'USER': 'postgres', #nome do user
-        'PASSWORD': 'Biseu2020', #password
+        'USER': 'bd2', #nome do user
+        'PASSWORD': 'bd2', #password
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
