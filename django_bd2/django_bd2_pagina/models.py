@@ -84,17 +84,6 @@ class Clube(models.Model):
         db_table = 'clube'
 
 
-<<<<<<< HEAD
-=======
-class Epocas(models.Model):
-    id_epoca = models.AutoField(primary_key=True)
-    ano_inicio = models.IntegerField()
-    ano_fim = models.IntegerField()
-    status = models.BooleanField(default='True',blank=True, null=True)
-   
-    def __str__(self):
-        return str(self.ano_inicio) + "/" + str(self.ano_fim)
->>>>>>> main
 
 
 

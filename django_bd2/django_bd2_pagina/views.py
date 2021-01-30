@@ -3,21 +3,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt  # ignorar os tokens, etc
 from django.template import loader
-<<<<<<< HEAD
-from .forms import JogadorForm
+from .forms import JogadorForm, AcaoDisciplinarForm, ClubeForm, EquipaForm, CampeonatoForm
 
 from .models import Jogadores, Equipas, Campeonatos
-
-from django.db import connections
-
-from .forms import EquipaForm
-from .models import Jogadores
-
-=======
-from .forms import JogadorForm, AcaoDisciplinarForm, ClubeForm, EquipaForm, CampeonatoForm
->>>>>>> main
-
-from .models import Jogadores, Equipas
 
 # json encoder
 from django.core.serializers.json import DjangoJSONEncoder
@@ -172,10 +160,6 @@ def list(request):
 def update(request):
     template = loader.get_template('list.html')
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 #  Listas da NASA
 
 
@@ -191,9 +175,3 @@ def jogador_list(request):
     return render(request,"list.html",context)
 
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> main
