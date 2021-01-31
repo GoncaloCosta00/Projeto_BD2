@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form class="col-md-5" action="" method="POST" autocomplete="off">
+    {% csrf_token %}
+    {{form.data_hora|as_crispy_field}}
+    {{form.local|as_crispy_field}}
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"></i>
+            Submit</button>
+    </div>
+
+    </div>
+</form>
+
+{% endblock content %}

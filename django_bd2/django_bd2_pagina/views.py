@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt  # ignorar os tokens, etc
 from django.template import loader
-from .forms import JogadorForm, AcaoDisciplinarForm, ClubeForm, EquipaForm, CampeonatoForm
+from .forms import JogadorForm, AcaoDisciplinarForm, ClubeForm, EquipaForm, CampeonatoForm,CampeonatoJogosEquipasForm
+from .forms import EpocaForm, JogosForm
 
 from .models import Jogadores, Equipas, Campeonatos
 
@@ -132,6 +133,79 @@ def create_campeonato(request):
             return render(request, 'campeonato.html', {'form': form})
         else:
             form = CampeonatoForm(request.POST)
+            print (request.POST)
+            # else:
+            #    employee = Employee.objects.get(pk=id)
+            #    form = JogadorForm(request.POST,instance= employee)
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            # return redirect('/create')
+        return HttpResponse('esta a funcionar!')
+
+def create_campeonatos_jogos_jquipas(request):
+        if request.method == "GET":
+            form = CampeonatoJogosEquipasForm()
+            return render(request, 'campeonatos_jogos_equipas.html', {'form': form})
+        else:
+            form = CampeonatoJogosEquipasForm(request.POST)
+            print (request.POST)
+            # else:
+            #    employee = Employee.objects.get(pk=id)
+            #    form = JogadorForm(request.POST,instance= employee)
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            # return redirect('/create')
+        return HttpResponse('esta a funcionar!')
+
+
+def create_epoca(request):
+        if request.method == "GET":
+            form = EpocaForm()
+            return render(request, 'epoca.html', {'form': form})
+        else:
+            form = EpocaForm(request.POST)
+            print (request.POST)
+            # else:
+            #    employee = Employee.objects.get(pk=id)
+            #    form = JogadorForm(request.POST,instance= employee)
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            # return redirect('/create')
+        return HttpResponse('esta a funcionar!')
+
+def create_jogo(request):
+        if request.method == "GET":
+            form = JogosForm()
+            return render(request, 'jogo.html', {'form': form})
+        else:
+            form = JogosForm(request.POST)
             print (request.POST)
             # else:
             #    employee = Employee.objects.get(pk=id)
