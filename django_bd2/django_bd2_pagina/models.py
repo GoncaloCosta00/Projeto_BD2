@@ -261,6 +261,9 @@ class TipoPontuacao(models.Model):
     id_tipo_pontuacao = models.AutoField(primary_key=True)
     tipo_pontuacao = models.TextField()
     status = models.BooleanField(default='True',blank=True, null=True)
+    
+    def __str__(self):
+        return self.tipo_pontuacao
 
     class Meta:
         managed = False

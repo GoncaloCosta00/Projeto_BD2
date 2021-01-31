@@ -4,8 +4,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt  # ignorar os tokens, etc
 from django.template import loader
 from .forms import JogadorForm, AcaoDisciplinarForm, ClubeForm, EquipaForm, CampeonatoForm,CampeonatoJogosEquipasForm
-from .forms import EpocaForm, JogosForm
-
+from .forms import EpocaForm, JogosForm, ModalidadesForm, PontuacoesForms, SubstituicoesForm,Tipos_acao_disciplinarForm
+from .forms import Tipos_de_pontuacaoForm
 from .models import Jogadores, Equipas, Campeonatos
 
 # json encoder
@@ -223,6 +223,131 @@ def create_jogo(request):
                 return HttpResponse('1')
             # return redirect('/create')
         return HttpResponse('esta a funcionar!')
+
+def create_modalidade(request):
+        if request.method == "GET":
+            form = ModalidadesForm()
+            return render(request, 'modalidade.html', {'form': form})
+        else:
+            form = ModalidadesForm(request.POST)
+            print (request.POST)
+            # else:
+            #    employee = Employee.objects.get(pk=id)
+            #    form = JogadorForm(request.POST,instance= employee)
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            # return redirect('/create')
+        return HttpResponse('esta a funcionar!')
+
+
+def create_pontuacao(request):
+        if request.method == "GET":
+                form = PontuacoesForms()
+                return render(request, 'pontuacao.html', {'form': form})
+        else:
+            form = PontuacoesForms(request.POST)
+            print (request.POST)
+            # else:
+            #    employee = Employee.objects.get(pk=id)
+            #    form = JogadorForm(request.POST,instance= employee)
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            # return redirect('/create')
+        return HttpResponse('esta a funcionar!')
+
+
+def create_subctituicao(request):
+        if request.method == "GET":
+                form = SubstituicoesForm()
+                return render(request, 'substituicao.html', {'form': form})
+        else:
+            form = SubstituicoesForm(request.POST)
+            print (request.POST)
+            # else:
+            #    employee = Employee.objects.get(pk=id)
+            #    form = JogadorForm(request.POST,instance= employee)
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            # return redirect('/create')
+        return HttpResponse('esta a funcionar!')
+
+
+def create_tipos_acao_disciplinar(request):
+        if request.method == "GET":
+                form = Tipos_acao_disciplinarForm()
+                return render(request, 'tipo_acao_disciplinar.html', {'form': form})
+        else:
+            form = Tipos_acao_disciplinarForm(request.POST)
+            print (request.POST)
+            # else:
+            #    employee = Employee.objects.get(pk=id)
+            #    form = JogadorForm(request.POST,instance= employee)
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            # return redirect('/create')
+        return HttpResponse('esta a funcionar!')
+
+
+def create_tipos_de_pontuacao(request):
+        if request.method == "GET":
+                form = Tipos_de_pontuacaoForm()
+                return render(request, 'tipo_pontuacao.html', {'form': form})
+        else:
+            form = Tipos_de_pontuacaoForm(request.POST)
+            print (request.POST)
+            # else:
+            #    employee = Employee.objects.get(pk=id)
+            #    form = JogadorForm(request.POST,instance= employee)
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            # return redirect('/create')
+        return HttpResponse('esta a funcionar!')
+        
 
 
 def list(request):
