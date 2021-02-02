@@ -202,6 +202,448 @@
       </div>
 
 
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFive">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              Lista clubes
+          </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong>Conteudo</strong> 
+  
+              <table class="table table-borderless">
+                  <thead class="border-bottom font-weight-bold">
+                      <tr>
+                          <td>Nome</td>
+                          <td>Endereço</td>
+                          <td>Telefone</td>
+                          <td>Presidente</td>
+                          <td>Distrito</td>
+                          <td>Email</td>
+                        
+                          <td>
+                              <a href="" class="btn btn-outline-success">
+                                  <i class="fas fa-plus"></i> Adicionar Jogador
+                              </a>
+                          </td>
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for clubes in clubes_list %}
+                          <tr>
+                              <td>{{clubes.nome}}</td>
+                              <td>{{clubes.endereco}}</td>
+                              <td>{{clubes.telefone}}</td>
+                              <td>{{clubes.presidente}}</td>
+                              <td>{{clubes.distrito}}</td>
+                              <td>{{clubes.email}}</td>
+                              <td>
+                                  <a href="" class="btn text-secondary px-0">
+                                      <i class="far fa-edit fa-lg"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+  
+          </div>
+        </div>
+      </div>
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingSix">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+              Lista Acoes Disciplinares
+          </button>
+        </h2>
+        <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong>Conteudo</strong> 
+  
+              <table class="table table-borderless">
+                  <thead class="border-bottom font-weight-bold">
+                      <tr>
+                          <td>Tipo Acão</td>
+                          <td>Comentario</td>
+                          <td>Tempo Jogo</td>
+                          
+                        
+                          <td>
+                              <a href="" class="btn btn-outline-success">
+                                  <i class="fas fa-plus"></i> Adicionar Jogador
+                              </a>
+                          </td>
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for acoesDisciplinares in acoesDisciplinares_list %}
+                          <tr>
+                              <td>{{acoesDisciplinares.id_tipo_acao_disciplinar}}</td>
+                              <td>{{acoesDisciplinares.comentario}}</td>
+                              <td>{{acoesDisciplinares.tempo_jogo}}</td>
+                              
+                              <td>
+                                  <a href="" class="btn text-secondary px-0">
+                                      <i class="far fa-edit fa-lg"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+  
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingEight">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+              Lista Jogam
+          </button>
+        </h2>
+        <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong>Conteudo</strong> 
+  
+              <table class="table table-borderless">
+                  <thead class="border-bottom font-weight-bold">
+                      <tr>
+                          <td>Jogador</td>
+                          <td>Equipa</td>
+                          
+                        
+                          <td>
+                              <a href="" class="btn btn-outline-success">
+                                  <i class="fas fa-plus"></i> Adicionar Jogador
+                              </a>
+                          </td>
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for jogam in jogam_list %}
+                          <tr>
+                              <td>{{jogam.id_jogador}}</td>
+                              <td>{{jogam.id_equipa}}</td>
+                              
+                              <td>
+                                  <a href="" class="btn text-secondary px-0">
+                                      <i class="far fa-edit fa-lg"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+  
+          </div>
+        </div>
+      </div>
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingNine">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+              Lista Modalidades
+          </button>
+        </h2>
+        <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong>Conteudo</strong> 
+  
+              <table class="table table-borderless">
+                  <thead class="border-bottom font-weight-bold">
+                      <tr>
+                          <td>Id</td>
+                          <td>Modalidade</td>
+                          
+                        
+                          <td>
+                              <a href="" class="btn btn-outline-success">
+                                  <i class="fas fa-plus"></i> Adicionar Jogador
+                              </a>
+                          </td>
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for modalidades in modalidades_list %}
+                          <tr>
+                              <td>{{modalidades.id_modalidade}}</td>
+                              <td>{{modalidades.modalidade}}</td>
+                              
+                              <td>
+                                  <a href="" class="btn text-secondary px-0">
+                                      <i class="far fa-edit fa-lg"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+  
+          </div>
+        </div>
+      </div>
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTen">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+              Lista Pontuacoes
+          </button>
+        </h2>
+        <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong>Conteudo</strong> 
+  
+              <table class="table table-borderless">
+                  <thead class="border-bottom font-weight-bold">
+                      <tr>
+                          <td>Id</td>
+                          <td>Tipo Pontuação</td>
+                          <td>Pontuação</td>
+                          <td>Tempo Jogo</td>
+                        
+                        
+                          <td>
+                              <a href="" class="btn btn-outline-success">
+                                  <i class="fas fa-plus"></i> Adicionar Jogador
+                              </a>
+                          </td>
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for pontuacoes in pontuacoes_list %}
+                          <tr>
+                              <td>{{pontuacoes.id_pontuacao}}</td>
+                              <td>{{pontuacoes.id_tipo_pontuacao}}</td>
+                              <td>{{pontuacoes.pontuacao}}</td>
+                              <td>{{pontuacoes.tempo_jogo}}</td>
+                       
+                              <td>
+                                  <a href="" class="btn text-secondary px-0">
+                                      <i class="far fa-edit fa-lg"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+  
+          </div>
+        </div>
+      </div>
+
+
+      
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwelve">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+              Lista Substituições
+          </button>
+        </h2>
+        <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong>Conteudo</strong> 
+  
+              <table class="table table-borderless">
+                  <thead class="border-bottom font-weight-bold">
+                      <tr>
+                          <td>Jogador</td>
+                          <td>Jogo</td>
+                          <td>Tempo Jogo</td>
+                          <td>Entra</td>
+                          <td>Sai</td>
+                        
+                        
+                          <td>
+                              <a href="" class="btn btn-outline-success">
+                                  <i class="fas fa-plus"></i> Adicionar Jogador
+                              </a>
+                          </td>
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for substituicoes in substituicoes_list %}
+                          <tr>
+                              <td>{{substituicoes.id_jogador}}</td>
+                              <td>{{substituicoes.id_jogo}}</td>
+                              <td>{{substituicoes.tempo_jogo}}</td>
+                              <td>{{substituicoes.entra}}</td>
+                              <td>{{substituicoes.sai}}</td>
+                       
+                              <td>
+                                  <a href="" class="btn text-secondary px-0">
+                                      <i class="far fa-edit fa-lg"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+  
+          </div>
+        </div>
+      </div>
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTreze">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTreze" aria-expanded="false" aria-controls="collapseTreze">
+              Lista Tipo Ação Disciplinar
+          </button>
+        </h2>
+        <div id="collapseTreze" class="accordion-collapse collapse" aria-labelledby="headingTreze" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong>Conteudo</strong> 
+  
+              <table class="table table-borderless">
+                  <thead class="border-bottom font-weight-bold">
+                      <tr>
+                          <td>Id</td>
+                          <td>Ação Disciplinar</td>
+                          
+                        
+                        
+                          <td>
+                              <a href="" class="btn btn-outline-success">
+                                  <i class="fas fa-plus"></i> Adicionar Jogador
+                              </a>
+                          </td>
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for tipoAcaoDisciplinar in tipoAcaoDisciplinar_list %}
+                          <tr>
+                              <td>{{tipoAcaoDisciplinar.id_tipo_acao_disciplinar}}</td>
+                              <td>{{tipoAcaoDisciplinar.acao_disciplinar}}</td>
+                              
+                       
+                              <td>
+                                  <a href="" class="btn text-secondary px-0">
+                                      <i class="far fa-edit fa-lg"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+  
+          </div>
+        </div>
+      </div>
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingCatorze">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCatorze" aria-expanded="false" aria-controls="collapseCatorze">
+              Lista Tipo Pontuacao
+          </button>
+        </h2>
+        <div id="collapseCatorze" class="accordion-collapse collapse" aria-labelledby="headingCatorze" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong>Conteudo</strong> 
+  
+              <table class="table table-borderless">
+                  <thead class="border-bottom font-weight-bold">
+                      <tr>
+                          <td>Id</td>
+                          <td>Tipo Pontuacao</td>
+                          
+                        
+                        
+                          <td>
+                              <a href="" class="btn btn-outline-success">
+                                  <i class="fas fa-plus"></i> Adicionar Jogador
+                              </a>
+                          </td>
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for tipoPontuacao in tipoPontuacao_list %}
+                          <tr>
+                              <td>{{tipoPontuacao.id_tipo_pontuacao}}</td>
+                              <td>{{tipoPontuacao.tipo_pontuacao}}</td>
+                              
+                       
+                              <td>
+                                  <a href="" class="btn text-secondary px-0">
+                                      <i class="far fa-edit fa-lg"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+  
+          </div>
+        </div>
+      </div>
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingQuinze">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseQuinze" aria-expanded="false" aria-controls="collapseQuinze">
+              Lista Epocas
+          </button>
+        </h2>
+        <div id="collapseQuinze" class="accordion-collapse collapse" aria-labelledby="headingQuinze" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong>Conteudo</strong> 
+  
+              <table class="table table-borderless">
+                  <thead class="border-bottom font-weight-bold">
+                      <tr>
+                          <td>Ano Inicio</td>
+                          <td>Ano Fim</td>
+                          
+                        
+                        
+                          <td>
+                              <a href="" class="btn btn-outline-success">
+                                  <i class="fas fa-plus"></i> Adicionar Jogador
+                              </a>
+                          </td>
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for epocas in epocas_list %}
+                          <tr>
+                              <td>{{epocas.ano_inicio}}</td>
+                              <td>{{epocas.ano_fim}}</td>
+                              
+                       
+                              <td>
+                                  <a href="" class="btn text-secondary px-0">
+                                      <i class="far fa-edit fa-lg"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+  
+          </div>
+        </div>
+      </div>
+
+
   </div>
 
 

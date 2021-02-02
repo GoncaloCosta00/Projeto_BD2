@@ -145,6 +145,9 @@ class Jogadores(models.Model):
     naturalidade = models.TextField()
     status = models.BooleanField( default='True',blank=True, null=True)
 
+    def __str__(self):
+            return self.nome
+
     class Meta:
         managed = False
         db_table = 'jogadores'
@@ -179,6 +182,7 @@ class Jogos(models.Model):
     data_hora = models.DateField()
     local = models.TextField(blank=True, null=True)
     status = models.BooleanField(default='True',blank=True, null=True)
+    
     
 
     class Meta:
@@ -251,6 +255,9 @@ class TipoAcaoDisciplinar(models.Model):
     id_tipo_acao_disciplinar = models.AutoField(primary_key=True)
     acao_disciplinar = models.TextField()
     status = models.BooleanField(default='True',blank=True, null=True)
+
+    def __str__(self):
+            return self.acao_disciplinar
 
     class Meta:
         managed = False

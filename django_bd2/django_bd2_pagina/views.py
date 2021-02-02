@@ -6,11 +6,40 @@ from django.template import loader
 from .forms import JogadorForm, AcaoDisciplinarForm, ClubeForm, EquipaForm, CampeonatoForm,CampeonatoJogosEquipasForm
 from .forms import EpocaForm, JogosForm, ModalidadesForm, PontuacoesForms, SubstituicoesForm,Tipos_acao_disciplinarForm
 from .forms import Tipos_de_pontuacaoForm,JogamForm,Jogador_jogos_equipaForm,Jogos_jogadores_acoesdiscipForm,Pontuacoes_jogadores_jogosForm
-from .models import Jogadores, Equipas, Campeonatos
+from .models import Jogadores, Equipas, Campeonatos, Clube,AcoesDisciplinares,Campeonatos,CampeonatosJogosEquipas,Jogam,Modalidades,Pontuacoes,PontuacoesJogadoresJogos,Substituicoes,TipoAcaoDisciplinar,TipoPontuacao,Epocas
 
 # json encoder
 from django.core.serializers.json import DjangoJSONEncoder
 from json import dumps as json_dumps
+
+
+#  Listas da NASA
+
+
+
+def jogador_list(request):
+    from django.db import connection
+    c = connection.cursor()
+    c.execute('select * from view2')
+    row = c.fetchall()
+
+    context = {'view2_list': row,'jogador_list': Jogadores.objects.all(),
+                                'equipas_list': Equipas.objects.all(),
+                                'campeonatos_list': Campeonatos.objects.all(),
+                                'clubes_list': Clube.objects.all(),
+                                'acoesDisciplinares_list' : AcoesDisciplinares.objects.all(),
+                                'campeonatosJogosEquipas_list' : CampeonatosJogosEquipas.objects.all(),
+                                'jogam_list' : Jogam.objects.all(),
+                                'modalidades_list' : Modalidades.objects.all(),
+                                'pontuacoes_list' : Pontuacoes.objects.all(),
+                                'pontuacoesJogadoresJogos_list' : PontuacoesJogadoresJogos.objects.all(),
+                                'substituicoes_list' : Substituicoes.objects.all(),
+                                'tipoAcaoDisciplinar_list' : TipoAcaoDisciplinar.objects.all(),
+                                'tipoPontuacao_list' : TipoPontuacao.objects.all(),
+                                'epocas_list' : Epocas.objects.all()}
+    print (row[0][1])
+    return render(request,"list.html",context)
+
 
 
 def index(request):
@@ -448,18 +477,5 @@ def list(request):
 def update(request):
     template = loader.get_template('list.html')
 
-#  Listas da NASA
-
-
-
-def jogador_list(request):
-    from django.db import connection
-    c = connection.cursor()
-    c.execute('select * from view2')
-    row = c.fetchall()
-
-    context = {'view2_list': row,'jogador_list': Jogadores.objects.all(),'equipas_list': Equipas.objects.all(),'campeonatos_list': Campeonatos.objects.all()}
-    print (row[0][1])
-    return render(request,"list.html",context)
 
 
