@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt  # ignorar os tokens, etc
 from django.template import loader
 from .forms import JogadorForm, AcaoDisciplinarForm, ClubeForm, EquipaForm, CampeonatoForm,CampeonatoJogosEquipasForm
 from .forms import EpocaForm, JogosForm, ModalidadesForm, PontuacoesForms, SubstituicoesForm,Tipos_acao_disciplinarForm
-from .forms import Tipos_de_pontuacaoForm
+from .forms import Tipos_de_pontuacaoForm,JogamForm,Jogador_jogos_equipaForm,Jogos_jogadores_acoesdiscipForm,Pontuacoes_jogadores_jogosForm
 from .models import Jogadores, Equipas, Campeonatos
 
 # json encoder
@@ -331,9 +331,7 @@ def create_tipos_de_pontuacao(request):
         else:
             form = Tipos_de_pontuacaoForm(request.POST)
             print (request.POST)
-            # else:
-            #    employee = Employee.objects.get(pk=id)
-            #    form = JogadorForm(request.POST,instance= employee)
+
             if form.is_valid():
                 try:
                     obj = form.save(commit=False)
@@ -345,10 +343,101 @@ def create_tipos_de_pontuacao(request):
                     print (message)
 
                 return HttpResponse('1')
-            # return redirect('/create')
+            
         return HttpResponse('esta a funcionar!')
+
+
+def create_jogam(request):
+        if request.method == "GET":
+                form = JogamForm()
+                return render(request, 'jogam.html', {'form': form})
+        else:
+            form = JogamForm(request.POST)
+            print (request.POST)
+
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            
+        return HttpResponse('esta a funcionar!')        
         
 
+def create_jogador_jogos_equipa(request):
+        if request.method == "GET":
+                form = Jogador_jogos_equipaForm()
+                return render(request, 'jogador_jogos_equipa.html', {'form': form})
+        else:
+            form = Jogador_jogos_equipaForm(request.POST)
+            print (request.POST)
+
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            
+        return HttpResponse('esta a funcionar!')        
+        
+
+def create_jogos_jogadores_acoesdiscip(request):
+        if request.method == "GET":
+                form = Jogos_jogadores_acoesdiscipForm()
+                return render(request, 'jogos_jogadores_acoesdiscip.html', {'form': form})
+        else:
+            form = Jogos_jogadores_acoesdiscipForm(request.POST)
+            print (request.POST)
+
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            
+        return HttpResponse('esta a funcionar!')  
+
+
+def create_pontuacoes_jogadores_jogos(request):
+        if request.method == "GET":
+                form = Pontuacoes_jogadores_jogosForm()
+                return render(request, 'pontuacoes_jogadores_jogos.html', {'form': form})
+        else:
+            form = Pontuacoes_jogadores_jogosForm(request.POST)
+            print (request.POST)
+
+            if form.is_valid():
+                try:
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                except Exception as e:
+                    trace_back = traceback.format_exc()
+                    message = str(e)+ " " + str(trace_back)
+                    print (message)
+
+                return HttpResponse('1')
+            
+        return HttpResponse('esta a funcionar!')  
+        
 
 def list(request):
     template = loader.get_template('update.html')
