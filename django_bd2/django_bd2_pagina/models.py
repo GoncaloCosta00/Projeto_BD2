@@ -6,7 +6,7 @@ from django.db import models
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `managed = True` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 
 
@@ -18,9 +18,11 @@ class AcoesDisciplinares(models.Model):
     tempo_jogo = models.CharField(max_length=256)
     status = models.BooleanField(default='True',blank=True, null=True)
 
+    def __str__(self):
+        return str(self.id_acao_disciplinar)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'acoes_disciplinares'
 
 
@@ -35,7 +37,7 @@ class Epocas(models.Model):
         return str(self.ano_inicio) + "/" + str(self.ano_fim)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'epocas'
 
 class Campeonatos(models.Model):
@@ -49,20 +51,21 @@ class Campeonatos(models.Model):
         return self.nome_campeonato
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'campeonatos'
 
         
 
 
 class CampeonatosJogosEquipas(models.Model):
+    id_campeonatos_jogos_equipas = models.AutoField(primary_key=True)
     id_jogo = models.ForeignKey('Jogos', models.DO_NOTHING, db_column='id_jogo')
     id_campeonato = models.ForeignKey(Campeonatos, models.DO_NOTHING, db_column='id_campeonato')
     id_equipa = models.ForeignKey('Equipas', models.DO_NOTHING, db_column='id_equipa')
     status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'campeonatos_jogos_equipas'
 
 
@@ -80,7 +83,7 @@ class Clube(models.Model):
         return self.nome
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'clube'
 
 
@@ -101,10 +104,10 @@ class Equipas(models.Model):
     status = models.BooleanField(default='True',blank=True, null=True)
 
     def __str__(self):
-        return self.equipa
+        return str(self.id_equipa)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'equipas'
 
 
@@ -119,7 +122,7 @@ class FaixaEtaria(models.Model):
         return self.faixa_etaria
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'faixa_etaria'
 
 
@@ -132,7 +135,7 @@ class Generos(models.Model):
         return self.genero
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'generos'
 
 
@@ -149,11 +152,12 @@ class Jogadores(models.Model):
             return self.nome
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'jogadores'
 
 
 class JogadoresJogosEquipas(models.Model):
+    id_jogadores_jogos_equipas = models.AutoField(primary_key=True)
     id_equipa = models.ForeignKey(Equipas, models.DO_NOTHING, db_column='id_equipa')
     id_jogo = models.ForeignKey('Jogos', models.DO_NOTHING, db_column='id_jogo')
     id_jogador = models.ForeignKey(Jogadores, models.DO_NOTHING, db_column='id_jogador')
@@ -162,7 +166,7 @@ class JogadoresJogosEquipas(models.Model):
     status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'jogadores_jogos_equipas'
 
 
@@ -172,7 +176,7 @@ class Jogam(models.Model):
     status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'jogam'
         unique_together = (('id_jogador', 'id_equipa'), ('id_jogador', 'id_equipa'),)
 
@@ -183,21 +187,23 @@ class Jogos(models.Model):
     local = models.TextField(blank=True, null=True)
     status = models.BooleanField(default='True',blank=True, null=True)
     
-    
+    def __str__(self):
+         return str(self.id_jogo)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'jogos'
 
 
 class JogosJogadoresAcoesdiscip(models.Model):
+    id_jogos_jogadores_acoesdiscip = models.AutoField(primary_key=True)
     id_jogo = models.ForeignKey(Jogos, models.DO_NOTHING, db_column='id_jogo')
     id_jogador = models.ForeignKey(Jogadores, models.DO_NOTHING, db_column='id_jogador')
     id_acao_disciplinar = models.ForeignKey(AcoesDisciplinares, models.DO_NOTHING, db_column='id_acao_disciplinar')
     status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'jogos_jogadores_acoesdiscip'
 
 
@@ -210,7 +216,7 @@ class Modalidades(models.Model):
         return self.modalidade
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'modalidades'
 
 
@@ -220,20 +226,25 @@ class Pontuacoes(models.Model):
     pontuacao = models.TextField()
     tempo_jogo = models.CharField(max_length=256)
     status = models.BooleanField(default='True',blank=True, null=True)
-
+    
+    def __str__(self):
+        return str(self.id_pontuacao)
+    
     class Meta:
-        managed = False
+        managed = True
         db_table = 'pontuacoes'
 
 
 class PontuacoesJogadoresJogos(models.Model):
+    id_pontuacoes_jogadores_jogos = models.AutoField(primary_key=True)
     id_pontuacao = models.ForeignKey(Pontuacoes, models.DO_NOTHING, db_column='id_pontuacao')
     id_jogador = models.ForeignKey(Jogadores, models.DO_NOTHING, db_column='id_jogador')
     id_jogo = models.ForeignKey(Jogos, models.DO_NOTHING, db_column='id_jogo')
     status = models.BooleanField(default='True',blank=True, null=True)
 
+    
     class Meta:
-        managed = False
+        managed = True
         db_table = 'pontuacoes_jogadores_jogos'
 
 
@@ -247,7 +258,7 @@ class Substituicoes(models.Model):
     status = models.BooleanField(default='True',blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'substituicoes'
 
 
@@ -260,7 +271,7 @@ class TipoAcaoDisciplinar(models.Model):
             return self.acao_disciplinar
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tipo_acao_disciplinar'
 
 
@@ -273,7 +284,7 @@ class TipoPontuacao(models.Model):
         return self.tipo_pontuacao
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tipo_pontuacao'
 
 

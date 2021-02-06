@@ -1,4 +1,4 @@
-insert into jogos_jogadores_acoesdiscip values
+insert into jogos_jogadores_acoesdiscip (id_jogo,id_jogador,id_acao_disciplinar)values
 /*futebol-----------------------------------------------*/
 (36,6,1),
 (36,8,2),

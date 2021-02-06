@@ -1,4 +1,4 @@
-insert into campeonatos_jogos_equipas values
+insert into campeonatos_jogos_equipas(id_jogo,id_campeonato,id_equipa) values
 --id jogo, id campeonato, id equipa
 --futebol -> primeira liga
 (36,1,1 ),

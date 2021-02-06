@@ -1,4 +1,4 @@
-insert into jogadores_jogos_equipas values
+insert into jogadores_jogos_equipas (id_equipa, id_jogo, id_jogador, titular, numero_jogador) values
 --id_equipa, id_jogo, id_jogador, titular, numero_jogador
 --futebol -> primeira liga
 --primeira jornada

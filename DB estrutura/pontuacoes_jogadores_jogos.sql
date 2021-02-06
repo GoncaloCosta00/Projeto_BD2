@@ -1,5 +1,5 @@
-insert into pontuacoes_jogadores_jogos values
-/*altear tabela, pq o os jogos e jogadores estao trocados*/
+insert into pontuacoes_jogadores_jogos(id_pontuacao,id_jogador,id_jogo) values
+
 /*futebol-----------------------------------------------*/
 (1,7,36),
 (2,7,36),

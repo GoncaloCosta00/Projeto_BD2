@@ -186,10 +186,13 @@ ID_MODALIDADE
 /* Table: campeonatos_jogos_equipas                         */
 /*==============================================================*/
 create table campeonatos_jogos_equipas (
+   ID_campeonatos_jogos_equipas serial 		not null,
    ID_JOGO              INT4                 not null,
    ID_CAMPEONATO        INT4                 not null,
    ID_EQUIPA            INT4                 not null,
-   status 				boolean 			default true
+   status 				boolean 			default true,
+   constraint PK_campeonatos_jogos_equipas primary key (ID_campeonatos_jogos_equipas)
+   
 );
 
 /*==============================================================*/
@@ -367,12 +370,14 @@ ID_JOGADOR
 /* Table: JOGADORES_JOGOS_EQUIPAS                               */
 /*==============================================================*/
 create table JOGADORES_JOGOS_EQUIPAS (
+   ID_JOGADORES_JOGOS_EQUIPAS serial 		not null,
    ID_EQUIPA            INT4                 not null,
    ID_JOGO              INT4                 not null,
    ID_JOGADOR           INT4                 not null,
    TITULAR              BOOL                 not null,
    NUMERO_JOGADOR       INT4                 not null,
-   status 				boolean 			default true
+   status 				boolean 			default true,
+    constraint PK_ID_JOGADORES_JOGOS_EQUIPAS primary key (ID_JOGADORES_JOGOS_EQUIPAS)
 );
 
 /*==============================================================*/
@@ -450,10 +455,12 @@ ID_JOGO
 /* Table: JOGOS_JOGADORES_ACOESDISCIP                           */
 /*==============================================================*/
 create table JOGOS_JOGADORES_ACOESDISCIP (
+   ID_JOGOS_JOGADORES_ACOESDISCIP serial 		not null,
    ID_JOGO              INT4                 not null,
    ID_JOGADOR           INT4                 not null,
    ID_ACAO_DISCIPLINAR  INT4                 not null,
-   status 				boolean 			default true
+   status 				boolean 			default true,
+   constraint PK_ID_JOGOS_JOGADORES_ACOESDISCIP primary key (ID_JOGOS_JOGADORES_ACOESDISCIP)
 );
 
 /*==============================================================*/
@@ -524,10 +531,12 @@ ID_TIPO_PONTUACAO
 /* Table: pontuacoes_jogadores_jogos                          */
 /*==============================================================*/
 create table pontuacoes_jogadores_jogos (
+   ID_pontuacoes_jogadores_jogos serial		not null, 
    ID_PONTUACAO         INT4                 not null,
    ID_JOGADOR           INT4                 not null,
    ID_JOGO              INT4                 not null,
-   status 				boolean 			default true
+   status 				boolean 			default true,
+   constraint PK_ID_pontuacoes_jogadores_jogos primary key (ID_pontuacoes_jogadores_jogos)
 );
 
 /*==============================================================*/
