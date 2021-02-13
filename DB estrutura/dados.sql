@@ -6,12 +6,12 @@ insert into modalidades (modalidade) values
 ('Hoquei em patins'),
 ('Andebol');
 
-insert into generos values 
+insert into generos (id_genero, genero) values 
 (1, 'Masculino'),
 (2, 'Feminino'),
 (3, 'Misto');
 
-insert into faixa_etaria values 
+insert into faixa_etaria (id_faixa_etaria, faixa_etaria, idade_inicio, idade_fim) values 
 (1 , 'Petizes', 2014, 2017),
 (2 , 'Traquinas', 2015, 2014),
 (3 , 'Benjamins', 2010, 2012),
@@ -22,14 +22,14 @@ insert into faixa_etaria values
 (8, 'SUB 20', 1999, 2002),
 (9, 'SENIORES', 1900, 1999);
 
-insert into clube values 
+insert into clube (id_clube, nome, endereco, telefone, presidente, distrito, email) values 
 (1, 'Sporting Clube de Portugal', 'Rua Professor Fernando da Fonseca, Lisboa, 1501-806 Lisboa', 217516522, 'Luana Benedita Oliveira de Leite', 'Lisboa', 'servico.socio@sporting.pt'),
 (2, 'SL Benfica', 'Av. General Norton De Matos 1500, 1501-805 Lisboa', 217219555, 'Camila Macedo de Andrade', 'Lisboa', 'webmasters@slbenfica.pt'),
 (3, 'FC Porto', 'Avenida Fernão de Maghalhães, Porto, 4350-415 Porto', 215570400, 'Matilde Laura Branco', 'Porto', 'futebolsad@fcporto.pt'),
 (4, 'Sporting Braga', 'Estádio Municipal de Braga/ Apartado 12, Braga, 4711-909 Braga', 253206860, 'Emanuel José Garcia Pinto', 'Braga', 'mail@scbraga.pt'),
 (5, 'Vitória Guimarães SC', 'Dr. António Pimenta Machado, 4802-914 Guimarães', 253432570, 'Cátia Anjos Batista', 'Guimarães', 'geral@vitoriasc.pt');
 
-insert into equipas values 
+insert into equipas (id_equipa,id_genero, id_clube, id_modalidade, id_faixa_etaria, equipa, treinador, sede, telefone, email) values 
 (1 , 1, 1, 1, 9, 'A', 'Alice Inês de Pinho', 'Rua Professor Fernando da Fonseca, Lisboa, 1501-806 Lisboa', 217516522, 'servico.socio@sporting.pt'),
 (2 , 1, 1, 1, 8, 'B', 'Joel Jorge Rocha de Gonçalves', 'Rua Professor Fernando da Fonseca, Lisboa, 1501-806 Lisboa', 217516522, 'servico.socio@sporting.pt'),
 (3 , 1, 1, 2, 9, 'A', 'Bárbara Beatriz Faria Soares Henriques', 'Rua Professor Fernando da Fonseca, Lisboa, 1501-806 Lisboa', 217516522, 'servico.socio@sporting.pt'),
@@ -70,7 +70,7 @@ insert into equipas values
 (38, 1, 5, 5, 8, 'B', 'Álvaro Vasco Leal', 'Dr. António Pimenta Machado, 4802-914 Guimarães', 253432570, 'geral@vitoriasc.pt'),
 (39, 2, 5, 4, 8, 'A', 'Francisco Rodrigo Neto de Reis', 'Dr. António Pimenta Machado, 4802-914 Guimarães', 253432570, 'geral@vitoriasc.pt');
 
-insert into jogadores values
+insert into jogadores (id_jogador, nome, data_nascimento, telemovel, altura, naturalidade) values
 (1, 'Nelson Ribeiro de Figueiredo','1995-04-04', 921234561, 170, 'Madeira'),
 (2, 'Mário Nelson Alves Magalhães','1995-02-04', 921234562, 155, 'Viseu'),
 (3, 'Diogo Leal de Vaz','1995-06-04', 921234563, 159, 'Porto'),

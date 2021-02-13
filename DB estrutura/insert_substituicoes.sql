@@ -1,4 +1,4 @@
-insert into substituicoes
+insert into substituicoes (id_sub, id_jogador, id_jogo, tempo_jogo, entra, sai)
 values
 (1  , 91 , 34 ,45 , 'false', 'true '),
 (2  , 95 , 34 ,57 , 'false', 'true '),

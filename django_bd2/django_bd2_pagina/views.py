@@ -1,4 +1,5 @@
 import traceback
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt  # ignorar os tokens, etc
@@ -7,6 +8,7 @@ from .forms import JogadorForm, AcaoDisciplinarForm, ClubeForm, EquipaForm, Camp
 from .forms import EpocaForm, JogosForm, ModalidadesForm, PontuacoesForms, SubstituicoesForm,Tipos_acao_disciplinarForm
 from .forms import Tipos_de_pontuacaoForm,JogamForm,Jogador_jogos_equipaForm,Jogos_jogadores_acoesdiscipForm,Pontuacoes_jogadores_jogosForm
 from .models import Jogadores, Equipas, Campeonatos, Clube,AcoesDisciplinares,Campeonatos,CampeonatosJogosEquipas,Jogam,Modalidades,Pontuacoes,PontuacoesJogadoresJogos,Substituicoes,TipoAcaoDisciplinar,TipoPontuacao,Epocas
+from .forms import *
 
 # json encoder
 from django.core.serializers.json import DjangoJSONEncoder
@@ -23,7 +25,8 @@ def jogador_list(request):
     c.execute('select * from view2')
     row = c.fetchall()
 
-    context = {'view2_list': row,'jogador_list': Jogadores.objects.all(),
+    context = {'view2_list': row,
+                                'jogador_list': Jogadores.objects.all(),
                                 'equipas_list': Equipas.objects.all(),
                                 'campeonatos_list': Campeonatos.objects.all(),
                                 'clubes_list': Clube.objects.all(),
@@ -475,7 +478,171 @@ def list(request):
 
 
 def update(request):
-    template = loader.get_template('list.html')
+    if request.method == "GET":
+        from django.db import connection
+        c = connection.cursor()
 
+        #obter tabela a editar
+        tabela = request.GET.get("tabela", "")
+        if tabela == "" :
+            return HttpResponse("É necessário especificar uma tabela!")
 
+        #obter colunas da tabela
+        c.execute('select column_name from information_schema.columns where table_name = \'' + tabela + '\'')
+        row = c.fetchall()
+
+        #creating query
+        
+        query = "select "
+        first = True
+        for v in row :
+            if v is not None:
+                if first:
+                    first = False
+                else:
+                    query = query + ", "
+                query = query + str(v[0])
+
+        query = query + " from " + tabela
+        first = True
+        for v in request.GET :
+            #dados[str(v[0])] = 1
+            if v != "tabela":
+                if first:
+                    query = query + " where "
+                    first = False
+                else:
+                    query = query + " and "
+                query = query + v + " = '" + request.GET.get(v, "") + "'"
+
+        #obter dados a editar
+        print(query)
+        c.execute(query)
+        data = c.fetchall()
+        dados = {}
+
+        if len(data) == 0:
+            return HttpResponse("Não existem esses dados na tabela!")
+        elif len(data) != 1:
+            return HttpResponse("Existem demasiados dados com esses valores!")
+
+        print(data)
+        index = 0
+        for v in row :
+            if v is not None:
+                if data[0][index] != None:
+                    dados[str(v[0])] = data[0][index]
+            index = index + 1
+
+        print(tabela)
+        print(dados)
+        #selecao do formulario a usar
+        form = None
+        template = ""
+        if tabela == "jogam":
+            template = 'jogam.html'
+            form = JogamForm(dados)
+        elif tabela == "pontuacoes_jogadores_jogos":
+            template = 'pontuacoes_jogadores_jogos.html'
+            form = Pontuacoes_jogadores_jogosForm(dados)
+        elif tabela == "jogos_jogadores_acoesdiscip":
+            template = 'jogos_jogadores_acoesdiscip.html'
+            form = Jogos_jogadores_acoesdiscipForm(dados)
+        elif tabela == "jogador_jogos_equipa":
+            template = 'jogador_jogos_equipa.html'
+            form = Jogador_jogos_equipaForm(dados)
+        elif tabela == "tipo_pontuacao":
+            template = 'tipo_pontuacao.html'
+            form = Tipos_de_pontuacaoForm(dados)
+        elif tabela == "tipo_acao_disciplinar":
+            template = 'tipo_acao_disciplinar.html'
+            form = Tipos_acao_disciplinarForm(dados)
+        elif tabela == "substituicoes":
+            template = 'substituicao.html'
+            form = SubstituicoesForm(dados)
+        elif tabela == "pontuacoes":
+            template = 'pontuacao.html'
+            form = PontuacoesForms(dados)
+        elif tabela == "modalidades":
+            template = 'modalidade.html'
+            form = ModalidadesForm(dados)
+        elif tabela == "jogo":
+            template = 'jogo.html'
+            form = JogosForm(dados)
+        elif tabela == "epocas":
+            template = 'epoca.html'
+            form = EpocaForm(dados)
+        elif tabela == "campeonatos_jogos_equipas":
+            template = 'campeonatos_jogos_equipas.html'
+            form = CampeonatoJogosEquipasForm(dados)
+        elif tabela == "campeonatos":
+            template = 'campeonato.html'
+            form = CampeonatoForm(dados)
+        elif tabela == "acoes_disciplinares":
+            template = 'create_acoesdisciplinares.html'
+            form = AcaoDisciplinarForm(dados)
+        elif tabela == "clube":
+            template = 'create_clube.html'
+            form = ClubeForm(dados)
+        elif tabela == "equipas":
+            template = 'create_equipas.html'
+            form = EquipaForm(dados)
+        elif tabela == "jogadores":
+            template = 'jogador.html'
+            form = JogadorForm(dados)
+        else:
+            return HttpResponse("Não é possível editar a tabela solicitada no momento!")
+
+        return render(request, template, {'form': form})
+    else:
+        from django.db import connection
+        c = connection.cursor()
+
+        #obter tabela a editar
+        tabela = request.GET.get("tabela", "")
+        if tabela == "" :
+            return HttpResponse("É necessário especificar uma tabela!")
+
+        form = None
+        template = ""
+        dados = request.POST
+        if tabela == "":
+            return HttpResponse("Não é possível editar a tabela solicitada no momento!")
+
+        #obter colunas da tabela
+        c.execute('select column_name from information_schema.columns where table_name = \'' + tabela + '\'')
+        row = c.fetchall()
+
+        #creating query
+        query = "update " + tabela + " set "
+        first = True
+        for v in dados :
+            print(v)
+            if v != "csrfmiddlewaretoken":
+                if first:
+                    first = False
+                else:
+                    query = query + ", "
+                query = query + v + " = '" + dados.get(v, "") + "'"
+
+        #adding the where 
+        first = True
+        for v in request.GET :
+            #dados[str(v[0])] = 1
+            if v != "tabela":
+                if first:
+                    query = query + " where "
+                    first = False
+                else:
+                    query = query + " and "
+                query = query + v + " = '" + request.GET.get(v, "") + "'"
+
+        #obter dados a editar
+        print(query)
+        c.execute(query)
+
+        return redirect("/list")
+        #return HttpResponse('POST DONE')
+
+    return HttpResponse('Pedido não permitido!!')
 

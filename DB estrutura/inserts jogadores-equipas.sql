@@ -1,4 +1,4 @@
-insert into jogam values
+insert into jogam (id_jogador, id_equipa) values
 (1	,1),
 (2	,1),
 (3	,1),
