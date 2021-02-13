@@ -24,6 +24,9 @@ def jogador_list(request):
     c = connection.cursor()
     c.execute('select * from view2')
     row = c.fetchall()
+    
+    c.execute('select (select nome from jogadores where jogadores.id_jogador = jogam.id_jogador) as "nome_jogador", id_equipa, id_jogador from jogam')
+    row2 = c.fetchall()
 
     context = {'view2_list': row,
                                 'jogador_list': Jogadores.objects.all(),
@@ -32,7 +35,7 @@ def jogador_list(request):
                                 'clubes_list': Clube.objects.all(),
                                 'acoesDisciplinares_list' : AcoesDisciplinares.objects.all(),
                                 'campeonatosJogosEquipas_list' : CampeonatosJogosEquipas.objects.all(),
-                                'jogam_list' : Jogam.objects.all(),
+                                'jogam_list' : row2,
                                 'modalidades_list' : Modalidades.objects.all(),
                                 'pontuacoes_list' : Pontuacoes.objects.all(),
                                 'pontuacoesJogadoresJogos_list' : PontuacoesJogadoresJogos.objects.all(),

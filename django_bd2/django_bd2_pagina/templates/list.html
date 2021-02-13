@@ -331,11 +331,11 @@
                   <tbody>
                       {% for jogam in jogam_list %}
                           <tr>
-                              <td>{{jogam.id_jogador}}</td>
-                              <td>{{jogam.id_equipa}}</td>
+                              <td>{{jogam.0}}</td>
+                              <td>{{jogam.1}}</td>
                               
                               <td>
-                                <a tabela_name="jogam" main_id_name="id_jogador" main_id_val={{jogam.id_jogador}} main_id2_name="id_equipa" main_id2_val={{jogam.id_equipa}} onclick="update_form(this)" class="btn text-secondary">
+                                <a tabela_name="jogam" main_id_name="id_jogador" main_id_val={{jogam.2}} onclick="update_form(this)" class="btn text-secondary">
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Jogador
                                 </a>
                               </td>
