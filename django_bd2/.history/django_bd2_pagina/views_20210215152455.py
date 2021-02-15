@@ -481,12 +481,11 @@ def list(request):
 
 
 def update(request):
-    #request do tipo GET
     if request.method == "GET":
         from django.db import connection
         c = connection.cursor()
 
-        #obter tabela a editar dos parametros passados pelo link
+        #obter tabela a editar
         tabela = request.GET.get("tabela", "")
         if tabela == "" :
             return HttpResponse("É necessário especificar uma tabela!")
@@ -495,7 +494,8 @@ def update(request):
         c.execute('select column_name from information_schema.columns where table_name = \'' + tabela + '\'')
         row = c.fetchall()
 
-        #criar query para obter os dados que pretende editar
+        #creating query
+        
         query = "select "
         first = True
         for v in row :
@@ -509,6 +509,7 @@ def update(request):
         query = query + " from " + tabela
         first = True
         for v in request.GET :
+            #dados[str(v[0])] = 1
             if v != "tabela":
                 if first:
                     query = query + " where "
@@ -518,20 +519,17 @@ def update(request):
                 query = query + v + " = '" + request.GET.get(v, "") + "'"
 
         #obter dados a editar
-        #print(query)
+        print(query)
         c.execute(query)
         data = c.fetchall()
         dados = {}
 
-        #dados nao foram encontrados
         if len(data) == 0:
             return HttpResponse("Não existem esses dados na tabela!")
-        #foi encontrada mais de uma correspondencia
         elif len(data) != 1:
             return HttpResponse("Existem demasiados dados com esses valores!")
 
-        #estruturar os dados para colocar no formulario
-        #print(data)
+        print(data)
         index = 0
         for v in row :
             if v is not None:
@@ -539,9 +537,9 @@ def update(request):
                     dados[str(v[0])] = data[0][index]
             index = index + 1
 
+        print(tabela)
+        print(dados)
         #selecao do formulario a usar
-        #print(tabela)
-        #print(dados)
         form = None
         template = ""
         if tabela == "jogam":
@@ -599,12 +597,11 @@ def update(request):
             return HttpResponse("Não é possível editar a tabela solicitada no momento!")
 
         return render(request, template, {'form': form})
-    #request do tipo POST
     else:
         from django.db import connection
         c = connection.cursor()
 
-        #obter tabela a editar dos parametros passados pelo link
+        #obter tabela a editar
         tabela = request.GET.get("tabela", "")
         if tabela == "" :
             return HttpResponse("É necessário especificar uma tabela!")
@@ -612,16 +609,18 @@ def update(request):
         form = None
         template = ""
         dados = request.POST
+        if tabela == "":
+            return HttpResponse("Não é possível editar a tabela solicitada no momento!")
 
         #obter colunas da tabela
         c.execute('select column_name from information_schema.columns where table_name = \'' + tabela + '\'')
         row = c.fetchall()
 
-        #criar query para atualizar os dados (adicao dos sets)
+        #creating query
         query = "update " + tabela + " set "
         first = True
         for v in dados :
-            #print(v)
+            print(v)
             if v != "csrfmiddlewaretoken":
                 if first:
                     first = False
@@ -629,7 +628,7 @@ def update(request):
                     query = query + ", "
                 query = query + v + " = '" + dados.get(v, "") + "'"
 
-        #criar query para atualizar os dados (adicao dos where)
+        #adding the where 
         first = True
         for v in request.GET :
             #dados[str(v[0])] = 1
@@ -641,11 +640,10 @@ def update(request):
                     query = query + " and "
                 query = query + v + " = '" + request.GET.get(v, "") + "'"
 
-        #executar a query criada
-        #print(query)
+        #obter dados a editar
+        print(query)
         c.execute(query)
 
-        #retornar o utilizador para a pagina de listagem das tabelas
         return redirect("/list")
         #return HttpResponse('POST DONE')
 

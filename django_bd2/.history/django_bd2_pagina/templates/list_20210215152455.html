@@ -714,10 +714,8 @@
     function update_form(el){
         var aux = el.getAttribute("main_id2_name");
         var link = "/update?tabela=" + el.getAttribute("tabela_name") + "&" + el.getAttribute("main_id_name") + "=" + el.getAttribute("main_id_val");
-        //adicionar a segunda chave primaria ao link caso seja necessário
         if (aux != null)
             link = link + "&" + aux + "=" + el.getAttribute("main_id2_val");
-        //redirecionar o utilizador
         location.href=link;
     }
 </script>

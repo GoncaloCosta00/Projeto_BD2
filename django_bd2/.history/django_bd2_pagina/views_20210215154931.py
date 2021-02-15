@@ -617,7 +617,7 @@ def update(request):
         c.execute('select column_name from information_schema.columns where table_name = \'' + tabela + '\'')
         row = c.fetchall()
 
-        #criar query para atualizar os dados (adicao dos sets)
+        #criar query para atualizar os dados
         query = "update " + tabela + " set "
         first = True
         for v in dados :
@@ -629,7 +629,7 @@ def update(request):
                     query = query + ", "
                 query = query + v + " = '" + dados.get(v, "") + "'"
 
-        #criar query para atualizar os dados (adicao dos where)
+        #adding the where 
         first = True
         for v in request.GET :
             #dados[str(v[0])] = 1
@@ -641,11 +641,10 @@ def update(request):
                     query = query + " and "
                 query = query + v + " = '" + request.GET.get(v, "") + "'"
 
-        #executar a query criada
-        #print(query)
+        #obter dados a editar
+        print(query)
         c.execute(query)
 
-        #retornar o utilizador para a pagina de listagem das tabelas
         return redirect("/list")
         #return HttpResponse('POST DONE')
 
