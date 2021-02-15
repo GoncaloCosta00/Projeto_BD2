@@ -29,6 +29,7 @@
                             <i class="fas fa-plus"></i> Adicionar Jogador
                         </a>
                     </td>
+                    <td><i class="fas fa-edit"></i></td>
                    
                 </tr>
             </thead>
@@ -45,6 +46,12 @@
                                 <i class="fas fa-edit fa-lg"></i> Atualizar Jogador
                             </a>
                         </td>
+                        <td>
+                            <a tabela_name="jogadores" main_id_name="id_jogador" main_id_val={{jogadores.id_jogador}} onclick="update_form(this)" class="btn text-secondary">
+                                <i class="fas fa-edit fa-lg"></i> Eliminar
+                            </a>
+                        </td>
+                        <td><i class="fas fa-edit"></i></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -101,6 +108,12 @@
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Equipa
                                 </a>
                             </td>
+                            <td>
+                                <a tabela_name="equipas" main_id_name="id_equipa" main_id_val={{equipas.id_equipa}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar
+                                </a>
+                            </td>
+                            
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -144,6 +157,11 @@
                             <td>
                                 <a tabela_name="campeonatos" main_id_name="id_campeonato" main_id_val={{campeonatos.id_campeonato}} onclick="update_form(this)" class="btn text-secondary">
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Campeonato
+                                </a>
+                            </td>
+                            <td>
+                                <a tabela_name="campeonatos" main_id_name="id_campeonato" main_id_val={{campeonatos.id_campeonato}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar
                                 </a>
                             </td>
                         </tr>
@@ -231,7 +249,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                      {% for clubes in clubes_list %}
+                      {% for clubes in clubes_list%}
                           <tr>
                               <td>{{clubes.nome}}</td>
                               <td>{{clubes.endereco}}</td>
@@ -242,6 +260,11 @@
                               <td>
                                 <a tabela_name="clube" main_id_name="id_clube" main_id_val={{clubes.id_clube}} onclick="update_form(this)" class="btn text-secondary">
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Clube
+                                </a>
+                              </td>
+                              <td>
+                                <a tabela_name="clube" main_id_name="id_clube" main_id_val={{clubes.id_clube}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar Clube
                                 </a>
                               </td>
                           </tr>
@@ -292,6 +315,11 @@
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Ação Disciplinar
                                 </a>
                               </td>
+                              <td>
+                                <a tabela_name="acoes_disciplinares" main_id_name="id_acao_disciplinar" main_id_val={{acoesDisciplinares.id_acao_disciplinar}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar
+                                </a>
+                              </td>
                           </tr>
                       {% endfor %}
                   </tbody>
@@ -337,6 +365,11 @@
                               <td>
                                 <a tabela_name="jogam" main_id_name="id_jogador" main_id_val={{jogam.2}} onclick="update_form(this)" class="btn text-secondary">
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Jogador
+                                </a>
+                              </td>
+                              <td>
+                                <a tabela_name="jogam" main_id_name="id_jogador" main_id_val={{jogam.2}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar
                                 </a>
                               </td>
                           </tr>
@@ -385,6 +418,11 @@
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Modalidade
                                 </a>
                               </td>
+                              <td>
+                                <a tabela_name="modalidades" main_id_name="id_modalidade" main_id_val={{modalidades.id_modalidade}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i>Eliminar
+                                </a>
+                              </td>
                           </tr>
                       {% endfor %}
                   </tbody>
@@ -419,6 +457,7 @@
                                   <i class="fas fa-plus"></i> Adicionar Pontuações
                               </a>
                           </td>
+                          
                          
                       </tr>
                   </thead>
@@ -433,6 +472,11 @@
                               <td>
                                 <a tabela_name="pontuacoes" main_id_name="id_pontuacao" main_id_val={{pontuacoes.id_pontuacao}} onclick="update_form(this)" class="btn text-secondary">
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Pontuações
+                                </a>
+                              </td>
+                              <td>
+                                <a tabela_name="pontuacoes" main_id_name="id_pontuacao" main_id_val={{pontuacoes.id_pontuacao}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar
                                 </a>
                               </td>
                           </tr>
@@ -490,6 +534,11 @@
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Substituição
                                 </a>
                               </td>
+                              <td>
+                                <a tabela_name="substituicoes" main_id_name="id_sub" main_id_val={{substituicoes.id_sub}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar
+                                </a>
+                              </td>
                           </tr>
                       {% endfor %}
                   </tbody>
@@ -536,6 +585,11 @@
                               <td>
                                 <a tabela_name="tipo_acao_disciplinar" main_id_name="id_tipo_acao_disciplinar" main_id_val={{tipoAcaoDisciplinar.id_tipo_acao_disciplinar}} onclick="update_form(this)" class="btn text-secondary">
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Tipo Ação Disciplinar
+                                </a>
+                              </td>
+                              <td>
+                                <a tabela_name="tipo_acao_disciplinar" main_id_name="id_tipo_acao_disciplinar" main_id_val={{tipoAcaoDisciplinar.id_tipo_acao_disciplinar}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar
                                 </a>
                               </td>
                           </tr>
@@ -586,6 +640,11 @@
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Tipo Pontuacao
                                 </a>
                               </td>
+                              <td>
+                                <a tabela_name="tipo_pontuacao" main_id_name="id_tipo_pontuacao" main_id_val={{tipoPontuacao.id_tipo_pontuacao}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar
+                                </a>
+                              </td>
                           </tr>
                       {% endfor %}
                   </tbody>
@@ -632,6 +691,11 @@
                               <td>
                                 <a tabela_name="epocas" main_id_name="id_epoca" main_id_val={{epocas.id_epoca}} onclick="update_form(this)" class="btn text-secondary">
                                     <i class="fas fa-edit fa-lg"></i> Atualizar Época
+                                </a>
+                              </td>
+                              <td>
+                                <a tabela_name="epocas" main_id_name="id_epoca" main_id_val={{epocas.id_epoca}} onclick="update_form(this)" class="btn text-secondary">
+                                    <i class="fas fa-edit fa-lg"></i> Eliminar
                                 </a>
                               </td>
                           </tr>

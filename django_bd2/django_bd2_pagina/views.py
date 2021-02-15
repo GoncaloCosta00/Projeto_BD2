@@ -29,20 +29,20 @@ def jogador_list(request):
     row2 = c.fetchall()
 
     context = {'view2_list': row,
-                                'jogador_list': Jogadores.objects.all(),
-                                'equipas_list': Equipas.objects.all(),
-                                'campeonatos_list': Campeonatos.objects.all(),
-                                'clubes_list': Clube.objects.all(),
-                                'acoesDisciplinares_list' : AcoesDisciplinares.objects.all(),
-                                'campeonatosJogosEquipas_list' : CampeonatosJogosEquipas.objects.all(),
+                                'jogador_list': Jogadores.objects.filter(status = 'True'),
+                                'equipas_list': Equipas.objects.filter(status = 'True'),
+                                'campeonatos_list': Campeonatos.objects.filter(status = 'True'),
+                                'clubes_list': Clube.objects.filter(status = 'True'),
+                                'acoesDisciplinares_list' : AcoesDisciplinares.objects.filter(status = 'True'),
+                                'campeonatosJogosEquipas_list' : CampeonatosJogosEquipas.objects.filter(status = 'True'),
                                 'jogam_list' : row2,
-                                'modalidades_list' : Modalidades.objects.all(),
-                                'pontuacoes_list' : Pontuacoes.objects.all(),
-                                'pontuacoesJogadoresJogos_list' : PontuacoesJogadoresJogos.objects.all(),
-                                'substituicoes_list' : Substituicoes.objects.all(),
-                                'tipoAcaoDisciplinar_list' : TipoAcaoDisciplinar.objects.all(),
-                                'tipoPontuacao_list' : TipoPontuacao.objects.all(),
-                                'epocas_list' : Epocas.objects.all()}
+                                'modalidades_list' : Modalidades.objects.filter(status = 'True'),
+                                'pontuacoes_list' : Pontuacoes.objects.filter(status = 'True'),
+                                'pontuacoesJogadoresJogos_list' : PontuacoesJogadoresJogos.objects.filter(status = 'True'),
+                                'substituicoes_list' : Substituicoes.objects.filter(status = 'True'),
+                                'tipoAcaoDisciplinar_list' : TipoAcaoDisciplinar.objects.filter(status = 'True'),
+                                'tipoPontuacao_list' : TipoPontuacao.objects.filter(status = 'True'),
+                                'epocas_list' : Epocas.objects.filter(status = 'True')}
     print (row[0][1])
     return render(request,"list.html",context)
 
