@@ -21,7 +21,5 @@ urlpatterns = [
     path('create/jogam', views.create_jogam, name = 'create_jogam'),
     path('create/jogador_jogos_equipa', views.create_jogador_jogos_equipa, name = 'create_jogador_jogos_equipa'),
     path('list', views.jogador_list, name='jogador_list'),
-    path('update',views.update ,name='index'),
-    path('delete',views.delete ,name='index')
-    
+    path('update',views.update ,name='index')
 ]
