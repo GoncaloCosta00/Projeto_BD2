@@ -1,29 +1,14 @@
-create or replace function funcao_logs()
-RETURNS trigger as 
-$body$
-begin
+drop table if exists logs;
+create table logs(
+	"id"  serial,
+	tabela  text,
+	alteracao  text,
+	hora  timestamp,
+	utilizador  text,
+	recover_query  text
+);
 
-    IF (TG_OP = 'UPDATE') THEN
-        insert into logs (tabela, alteracao,hora,utilizador) 
-        values (TG_TABLE_NAME::regclass::text,'Update na tabela',NOW(),user);
-        
-    ELSIF (TG_OP = 'DELETE') THEN
-        insert into logs (tabela, alteracao,hora,utilizador) 
-        values (TG_TABLE_NAME::regclass::text,'Delete na tabela',NOW(),user);
-
-    ELSIF (TG_OP = 'INSERT') THEN
-        insert into logs (tabela, alteracao,hora,utilizador) 
-        values (TG_TABLE_NAME::regclass::text,'Insert na tabela',NOW(),user);
-        
-    end if;
-    
-return new;
-end;
-$body$
-language plpgsql;
-
-
-
+/*drop triggers*/
 DO $$
 DECLARE
     tt record;
@@ -40,6 +25,147 @@ BEGIN
 	  if tt.tablename <> 'logs' then
 	  EXECUTE format('DROP TRIGGER if exists trigger_logs_%I ON %I',
                         tt.tablename, tt.tablename);
+						
+		end if;
+    END LOOP;
+	CLOSE cc;
+END; $$ 
+LANGUAGE plpgsql;
+
+/*drop e criacao da funcao do trigger
+tentativa de generaizar*/
+/*drop function if exists funcao_logs;
+create function funcao_logs()
+RETURNS trigger as 
+$body$
+declare 
+	res cursor (tabela text) for select column_name from information_schema.columns where table_name = tabela ;
+	v text;
+	coluna_aux text;
+	tabela_name text;
+	query_string text;
+begin
+	tabela_name := TG_TABLE_NAME::regclass::text;
+    IF (TG_OP = 'UPDATE') THEN
+		query_string := 'update ' || TG_TABLE_NAME::regclass::text || ' set ';
+		
+		open res (TG_TABLE_NAME::regclass::text);
+		
+		loop
+			fetch res into coluna_aux;
+			exit when not found;
+
+			query_string := query_string || coluna_aux || ' = ' || chr(39) || OLD.coluna_aux || chr(39) || ', ';
+
+    	END LOOP;
+		
+		close res;
+		
+		raise info '%', query_string;
+        /*insert into logs (tabela, alteracao,hora,utilizador,recover_query) 
+        values (TG_TABLE_NAME::regclass::text,'Update na tabela',NOW(),user);
+        */
+    ELSIF (TG_OP = 'DELETE') THEN
+        insert into logs (tabela, alteracao,hora,utilizador,recover_query) 
+        values (TG_TABLE_NAME::regclass::text,'Delete na tabela',NOW(),user);
+
+    ELSIF (TG_OP = 'INSERT') THEN
+        insert into logs (tabela, alteracao,hora,utilizador,recover_query) 
+        values (TG_TABLE_NAME::regclass::text,'Insert na tabela',NOW(),user);
+        
+    end if;
+return new;
+end;
+$body$
+language plpgsql;
+*/
+drop function if exists funcao_logs;
+create function funcao_logs()
+RETURNS trigger as 
+$body$
+begin
+    IF (TG_OP = 'UPDATE') THEN
+        insert into logs (tabela, alteracao,hora,utilizador) 
+        values (TG_TABLE_NAME::regclass::text,'Update na tabela',NOW(),user);
+    ELSIF (TG_OP = 'DELETE') THEN
+        insert into logs (tabela, alteracao,hora,utilizador) 
+        values (TG_TABLE_NAME::regclass::text,'Delete na tabela',NOW(),user);
+
+    ELSIF (TG_OP = 'INSERT') THEN
+        insert into logs (tabela, alteracao,hora,utilizador) 
+        values (TG_TABLE_NAME::regclass::text,'Insert na tabela',NOW(),user);
+        
+    end if;
+return new;
+end;
+$body$
+language plpgsql;
+	
+DROP trigger if exists trigger_logs_tipo_pontuacao on tipo_pontuacao;
+drop function if exists funcao_logs_tabela_tipo_pontuacao;
+create function funcao_logs_tabela_tipo_pontuacao()
+RETURNS trigger as 
+$body$
+declare
+	status_text text;
+begin
+    IF (TG_OP = 'UPDATE') THEN
+		if OLD.status is NULL then
+			status_text:= 'is NULL';
+		elseif not OLD.status then
+			status_text:= '= false';
+		else
+			status_text:= '= true';
+		end if;
+        insert into logs (tabela, alteracao,hora,utilizador,recover_query) 
+        values (TG_TABLE_NAME::regclass::text,'Update na tabela',NOW(),user, 'update tipo_pontuacao set id_tipo_pontuacao = ' || OLD.id_tipo_pontuacao || ', tipo_pontuacao = ' || chr(39) || OLD.tipo_pontuacao || chr(39) || ', status ' || status_text || ' where id_tipo_pontuacao = ' || OLD.id_tipo_pontuacao);
+    ELSIF (TG_OP = 'DELETE') THEN
+		if OLD.status is NULL then
+			status_text:= 'NULL';
+		elseif not OLD.status then
+			status_text:= 'false';
+		else
+			status_text:= 'true';
+		end if;
+        insert into logs (tabela, alteracao,hora,utilizador,recover_query) 
+        values (TG_TABLE_NAME::regclass::text,'Delete na tabela',NOW(),user, 'insert into tipo_pontuacao (id_tipo_pontuacao, tipo_pontuacao, status) values(' || OLD.id_tipo_pontuacao || ', ' || chr(39) || OLD.tipo_pontuacao || chr(39) || ', ' || status_text);
+
+    ELSIF (TG_OP = 'INSERT') THEN
+		if NEW.status is NULL then
+			status_text:= 'is NULL';
+		elseif not NEW.status then
+			status_text:= '= false';
+		else
+			status_text:= '= true';
+		end if;
+        insert into logs (tabela, alteracao,hora,utilizador,recover_query) 
+        values (TG_TABLE_NAME::regclass::text,'Insert na tabela',NOW(),user, 'delete from tipo_pontuacao where id_tipo_pontuacao = ' || NEW.id_tipo_pontuacao || ' and tipo_pontuacao = ' || chr(39) || NEW.tipo_pontuacao || chr(39) || ' and status ' || status_text);
+        
+    end if;
+return new;
+end;
+$body$
+language plpgsql;
+
+CREATE TRIGGER trigger_logs_tipo_pontuacao
+                        AFTER INSERT OR DELETE OR UPDATE ON tipo_pontuacao
+                        FOR EACH ROW EXECUTE FUNCTION funcao_logs_tabela_tipo_pontuacao();
+						
+/*criar triggers*/
+DO $$
+DECLARE
+    tt record;
+	cc cursor
+		 for SELECT p.tablename
+		FROM pg_tables p
+		WHERE p.schemaname = 'public';
+BEGIN
+	open cc;
+	loop
+      fetch cc into tt;
+      exit when not found;
+	  
+	  if tt.tablename <> 'logs' and tt.tablename <> 'tipo_pontuacao' then
         EXECUTE format('CREATE TRIGGER trigger_logs_%I
                         AFTER INSERT OR DELETE OR UPDATE ON %I
                         FOR EACH ROW EXECUTE FUNCTION funcao_logs()',
@@ -51,3 +177,19 @@ BEGIN
 	CLOSE cc;
 END; $$ 
 LANGUAGE plpgsql;
+
+drop procedure if exists procedure_logs;
+create procedure procedure_logs(in tabelaa text, in userr text)
+language plpgsql
+as $body$
+declare
+	queryy text;
+begin
+	queryy := (select logs.recover_query from logs where logs.tabela = tabelaa and logs.utilizador = userr order by hora desc limit 1);
+	if queryy is not null then
+		execute queryy;
+	end if;
+end;
+$body$;
+
+call procedure_logs('tipo_pontuacao', 'postgres');
